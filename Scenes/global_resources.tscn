@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c48gaj4t3u8aw"]
+
+[ext_resource type="Script" uid="uid://bxl1fg1gwe84h" path="res://Scripts/GlobalResources.cs" id="1_jh8f0"]
+[ext_resource type="Resource" uid="uid://ca5vjnmlh00cc" path="res://Resources/Weapons/shotgun.tres" id="2_qsdv5"]
+[ext_resource type="Resource" uid="uid://cdcoxq37k8r3s" path="res://Resources/Weapons/RPG.tres" id="3_pcofn"]
+[ext_resource type="Resource" uid="uid://dnl86c1u0ivn1" path="res://Resources/Weapons/potato_launcher.tres" id="4_x4ja0"]
+
+[node name="GlobalResources" type="Node" unique_id=1947013935]
+script = ExtResource("1_jh8f0")
+Weapons = Array[Object]([ExtResource("2_qsdv5"), ExtResource("3_pcofn"), ExtResource("4_x4ja0")])

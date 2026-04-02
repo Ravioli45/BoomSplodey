@@ -42,6 +42,31 @@ public partial class Player : CharacterBody2D
 
     [ExportGroup("")]
 
+    [Export(PropertyHint.Enum, "None:-1,Shotgun:0,RPG:1,Potato Launcher:2")]
+    public int WeaponIndex
+    {
+        get => field;
+        set
+        {
+            if (value < 0 || value >= GlobalResources.Instance.Weapons.Count)
+            {
+                field = -1;
+            }
+            else
+            {
+                field = value;
+            }
+
+            if (field == -1)
+            {
+                PlayerWeapon.Resource = null;
+            }
+            else
+            {
+                PlayerWeapon.Resource = GlobalResources.Instance.Weapons[field];
+            }
+        }
+    } = -1;
     [Export]
     private Weapon PlayerWeapon;
     [Export]

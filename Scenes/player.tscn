@@ -26,6 +26,12 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Weapon:scale:y")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:WeaponIndex")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:OwnerId")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("1_v0iea")
