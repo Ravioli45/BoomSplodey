@@ -1,0 +1,101 @@
+using Godot;
+using System;
+
+[GlobalClass]
+[Tool]
+public partial class WeaponResource : Resource
+{
+    [ExportSubgroup("Sprite")]
+    private SpriteFrames _spriteAnimations = null;
+    [Export]
+    public SpriteFrames SpriteAnimations
+    {
+        get => _spriteAnimations;
+        set
+        {
+            //field = value;
+            _spriteAnimations = value;
+            //EmitSignalChanged();
+            EmitChanged();
+        }
+    }
+
+    private Vector2 _spriteOffset = Vector2.Zero;
+    [Export]
+    public Vector2 SpriteOffset
+    {
+        get => _spriteOffset;
+        set
+        {
+            _spriteOffset = value;
+            EmitChanged();
+        }
+    }
+
+    [ExportSubgroup("Stats")]
+    private float _fireRate = 0.0f;
+    [Export]
+    public float FireRate
+    {
+        get => _fireRate;
+        set
+        {
+            _fireRate = value;
+            EmitChanged();
+        }
+    }
+    private float _recoilStrength = 0.0f;
+    [Export]
+    public float RecoilStrength
+    {
+        get => _recoilStrength;
+        set
+        {
+            _recoilStrength = value;
+            EmitChanged();
+        }
+    }
+
+    [ExportSubgroup("Bullet")]
+    private Vector2 _bulletSpawnOffset = Vector2.Zero;
+    [Export]
+    public Vector2 BulletSpawnOffset
+    {
+        get => _bulletSpawnOffset;
+        set
+        {
+            //field = value;
+            _bulletSpawnOffset = value;
+            //EmitSignalChanged();
+            EmitChanged();
+        }
+    }
+
+    private PackedScene _bulletScene;
+    [Export]
+    public PackedScene BulletScene
+    {
+        get => _bulletScene;
+        set
+        {
+            _bulletScene = value;
+            EmitChanged();
+        }
+    }
+
+    public WeaponResource() : this(null, Vector2.Zero, 0.0f, 0.0f, Vector2.Zero, null) { }
+
+    public WeaponResource(SpriteFrames spriteAnimations, Vector2 spriteOffset, float fireRate, float recoilStrength, Vector2 bulletSpawnOffset, PackedScene bulletScene)
+    {
+        //SpriteAnimations = spriteAnimations;
+        //BulletSpawnOffset = bulletSpawnOffset;
+        _spriteAnimations = spriteAnimations;
+        _spriteOffset = spriteOffset;
+
+        _fireRate = fireRate;
+        _recoilStrength = recoilStrength;
+
+        _bulletSpawnOffset = bulletSpawnOffset;
+        _bulletScene = bulletScene;
+    }
+}

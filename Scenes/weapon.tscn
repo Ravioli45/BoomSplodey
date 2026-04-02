@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cc4ho5c3iisai"]
+
+[ext_resource type="Script" uid="uid://eybuqvwjumab" path="res://Scripts/Weapon.cs" id="1_er6cq"]
+[ext_resource type="Script" uid="uid://c0laukwre1bka" path="res://Scripts/Indicator.cs" id="2_qv81b"]
+
+[node name="Weapon" type="AnimatedSprite2D" unique_id=1168078315 node_paths=PackedStringArray("BulletSpawnpoint")]
+autoplay = "default"
+script = ExtResource("1_er6cq")
+BulletSpawnpoint = NodePath("BulletSpawnpoint")
+
+[node name="BulletSpawnpoint" type="Node2D" parent="." unique_id=1237581519]
+script = ExtResource("2_qv81b")
+Radius = 10.0
+metadata/_custom_type_script = "uid://c0laukwre1bka"
+
+[connection signal="animation_finished" from="." to="." method="OnAnimationFinished"]

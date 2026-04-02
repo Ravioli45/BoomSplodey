@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://cdcoxq37k8r3s"]
+
+[ext_resource type="Texture2D" uid="uid://q4hfenixdtyq" path="res://SpriteSheets/RPGBS.png" id="1_6l17g"]
+[ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="2_u4xxm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
+atlas = ExtResource("1_6l17g")
+region = Rect2(0, 0, 310, 324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
+atlas = ExtResource("1_6l17g")
+region = Rect2(310, 0, 310, 324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("1_6l17g")
+region = Rect2(620, 0, 310, 324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("1_6l17g")
+region = Rect2(930, 0, 310, 324)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("1_6l17g")
+region = Rect2(1240, 0, 310, 324)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7dp3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8erm5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx1dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gymyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukyrk")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[resource]
+script = ExtResource("2_u4xxm")
+SpriteAnimations = SubResource("SpriteFrames_7dp3o")
+SpriteOffset = Vector2(0, -2.5)
+FireRate = 0.5
+RecoilStrength = 2000.0
+BulletSpawnOffset = Vector2(62, 0)
+metadata/_custom_type_script = "uid://hww2vyb0oeef"

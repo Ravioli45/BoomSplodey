@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b1vthdi55w1qw"]
+
+[ext_resource type="Script" uid="uid://c0laukwre1bka" path="res://Scripts/Indicator.cs" id="1_2k7kp"]
+
+[node name="Indicator" type="Node2D" unique_id=2043530880]
+script = ExtResource("1_2k7kp")
+Radius = 10.0
