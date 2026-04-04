@@ -48,6 +48,12 @@ public partial class Player : CharacterBody2D
         get => field;
         set
         {
+            if (!IsInstanceValid(GlobalResources.Instance))
+            {
+                field = value;
+                return;
+            }
+
             if (value < 0 || value >= GlobalResources.Instance.Weapons.Count)
             {
                 field = -1;
@@ -78,8 +84,10 @@ public partial class Player : CharacterBody2D
     {
         base._Ready();
 
+        WeaponIndex = WeaponIndex;
+        
         // temporary
-        SetPhysicsProcess(Multiplayer.IsServer());
+        //SetPhysicsProcess(Multiplayer.IsServer());
     }
 
     public override void _PhysicsProcess(double delta)

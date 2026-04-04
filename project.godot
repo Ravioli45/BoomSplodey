@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 GlobalResources="*uid://c48gaj4t3u8aw"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [dotnet]
 
 project/assembly_name="BoomSplodey"

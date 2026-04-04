@@ -99,7 +99,7 @@ size = Vector2(120, 267)
 [node name="Player" type="CharacterBody2D" unique_id=1361488487 node_paths=PackedStringArray("InputSync", "PlayerWeapon", "PlayerSprite")]
 collision_layer = 4
 collision_mask = 15
-platform_floor_layers = 4294901763
+platform_floor_layers = 4278190083
 script = ExtResource("1_cvnsp")
 InputSync = NodePath("InputSynchronizer")
 MoveSpeed = 900.0

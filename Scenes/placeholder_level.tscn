@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cx0gse28pkqxl"]
+
+[ext_resource type="Script" uid="uid://cglyfkjk3kp85" path="res://Scripts/Level.cs" id="1_k8lij"]
+[ext_resource type="PackedScene" uid="uid://c5h2f2lycfys1" path="res://Scenes/player.tscn" id="2_v7dtr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4hs8"]
+size = Vector2(2000, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_k8lij"]
+size = Vector2(2000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8lij"]
+size = Vector2(100, 800)
+
+[sub_resource type="QuadMesh" id="QuadMesh_v7dtr"]
+size = Vector2(100, 800)
+
+[node name="PlaceholderLevel" type="Node2D" unique_id=1643052975 node_paths=PackedStringArray("SpawnpointsParent")]
+script = ExtResource("1_k8lij")
+SpawnpointsParent = NodePath("Spawnpoints")
+PlayerScene = ExtResource("2_v7dtr")
+
+[node name="GameObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=2129103822]
+_spawnable_scenes = PackedStringArray("uid://c5h2f2lycfys1")
+spawn_path = NodePath("..")
+
+[node name="Spawnpoints" type="Node" parent="." unique_id=1754487651]
+
+[node name="Node2D" type="Node2D" parent="Spawnpoints" unique_id=2003555681]
+position = Vector2(607, 355)
+
+[node name="Node2D2" type="Node2D" parent="Spawnpoints" unique_id=1506040353]
+position = Vector2(607, 61)
+
+[node name="Node2D3" type="Node2D" parent="Spawnpoints" unique_id=1495384036]
+position = Vector2(1087, 0)
+
+[node name="Node2D4" type="Node2D" parent="Spawnpoints" unique_id=1750748559]
+position = Vector2(159, 61)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=2082363259]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1885329614]
+position = Vector2(607, 752)
+shape = SubResource("RectangleShape2D_s4hs8")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Floor/CollisionShape2D" unique_id=650044445]
+mesh = SubResource("QuadMesh_k8lij")
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=345797200]
+position = Vector2(0, 355)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=805004339]
+shape = SubResource("RectangleShape2D_k8lij")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Wall/CollisionShape2D" unique_id=1868421498]
+mesh = SubResource("QuadMesh_v7dtr")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=581385698]
+position = Vector2(1283, 355)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=999552587]
+shape = SubResource("RectangleShape2D_k8lij")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Wall2/CollisionShape2D" unique_id=618431599]
+mesh = SubResource("QuadMesh_v7dtr")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=763922158]
+position = Vector2(607, 355)
+zoom = Vector2(0.405, 0.405)

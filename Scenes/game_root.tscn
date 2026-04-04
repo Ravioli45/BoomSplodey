@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cdbeqk2k84qi"]
+
+[ext_resource type="Script" uid="uid://oaihqatgujtk" path="res://Scripts/GameRoot.cs" id="1_y37ms"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y37ms"]
+properties/0/path = NodePath(".:HostId")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton")]
+script = ExtResource("1_y37ms")
+GameLobbyUI = NodePath("GameLobby")
+StartButton = NodePath("GameLobby/StartButton")
+LevelScenePath = "res://Scenes/placeholder_level.tscn"
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=406327277]
+_spawnable_scenes = PackedStringArray("uid://cx0gse28pkqxl")
+spawn_path = NodePath("..")
+spawn_limit = 1
+
+[node name="GameRootSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=667537452]
+replication_config = SubResource("SceneReplicationConfig_y37ms")
+
+[node name="GameLobby" type="Control" parent="." unique_id=2126129550]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="GAME" type="Label" parent="GameLobby" unique_id=1716787957]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.264
+anchor_bottom = 0.18900001
+offset_right = 0.08001709
+offset_bottom = -0.08000183
+theme_override_font_sizes/font_size = 48
+text = "COOL GAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="GameLobby" unique_id=628082798]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="GameLobby/CenterContainer" unique_id=251590160]
+custom_minimum_size = Vector2(1000, 375)
+layout_mode = 2
+columns = 4
+
+[node name="StartButton" type="Button" parent="GameLobby" unique_id=324662977]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7515625
+anchor_top = 0.825
+anchor_right = 0.92387503
+anchor_bottom = 0.965
+offset_right = 0.44000244
+offset_bottom = 0.19999695
+theme_override_font_sizes/font_size = 36
+text = "Start"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GameLobby/StartButton" to="." method="OnStartPressed"]

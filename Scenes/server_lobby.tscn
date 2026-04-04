@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://cgppmbp4oxp57"]
+
+[ext_resource type="Script" uid="uid://cd7d2n68ybn41" path="res://Scripts/ServerLobby.cs" id="1_tinf2"]
+
+[node name="ServerLobby" type="Control" unique_id=428426383 node_paths=PackedStringArray("ServerListMenu", "ServerList", "CreateMenu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tinf2")
+ServerListMenu = NodePath("ServerListMenu")
+ServerList = NodePath("ServerListMenu/ServerList")
+CreateMenu = NodePath("CreateMenu")
+metadata/_edit_lock_ = true
+
+[node name="ServerListMenu" type="Control" parent="." unique_id=461581858]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="ServerList" type="ItemList" parent="ServerListMenu" unique_id=1755811417]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06171875
+anchor_top = 0.22366668
+anchor_right = 0.93828124
+anchor_bottom = 0.775
+offset_top = -0.040008545
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 42
+metadata/_edit_use_anchors_ = true
+
+[node name="JoinButton" type="Button" parent="ServerListMenu" unique_id=1981657211]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13671875
+anchor_top = 0.8041667
+anchor_right = 0.3320035
+anchor_bottom = 0.9426976
+offset_top = -1.0
+offset_right = 0.03552246
+offset_bottom = -0.74224854
+theme_override_font_sizes/font_size = 36
+text = "Join"
+metadata/_edit_use_anchors_ = true
+
+[node name="RefreshButton" type="Button" parent="ServerListMenu" unique_id=1988000230]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13671875
+anchor_top = 0.05277778
+anchor_right = 0.3320035
+anchor_bottom = 0.19130868
+offset_top = -1.0
+offset_right = 0.03552246
+offset_bottom = -0.74224854
+theme_override_font_sizes/font_size = 36
+text = "Refresh"
+metadata/_edit_use_anchors_ = true
+
+[node name="CreateButton" type="Button" parent="ServerListMenu" unique_id=1891422899]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.66800004
+anchor_top = 0.80288893
+anchor_right = 0.86300004
+anchor_bottom = 0.9418889
+offset_left = -0.040039063
+offset_top = -0.08001709
+offset_right = 0.35998535
+offset_bottom = -0.16003418
+theme_override_font_sizes/font_size = 36
+text = "Create"
+metadata/_edit_use_anchors_ = true
+
+[node name="CreateMenu" type="Control" parent="." unique_id=29749010]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="LobbyNameEdit" type="LineEdit" parent="CreateMenu" unique_id=903622622]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3322813
+anchor_top = 0.29472223
+anchor_right = 0.66771877
+anchor_bottom = 0.41638887
+offset_left = -0.32006836
+offset_top = -0.2000122
+offset_right = 0.3199463
+offset_bottom = 0.19998169
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+placeholder_text = "Lobby Name"
+max_length = 16
+metadata/_edit_use_anchors_ = true
+
+[node name="BackButton" type="Button" parent="CreateMenu" unique_id=1343467653]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06640625
+anchor_top = 0.07638889
+anchor_right = 0.21440625
+anchor_bottom = 0.17038889
+offset_right = -0.44000244
+offset_bottom = 0.3199997
+theme_override_font_sizes/font_size = 36
+text = "Back"
+metadata/_edit_use_anchors_ = true
+
+[node name="OkButton" type="Button" parent="CreateMenu" unique_id=2025171645]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44401565
+anchor_top = 0.60444444
+anchor_right = 0.5559844
+anchor_bottom = 0.6844445
+offset_left = -0.34002686
+offset_top = -0.2000122
+offset_right = 0.33996582
+offset_bottom = 0.19998169
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Ok"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="item_selected" from="ServerListMenu/ServerList" to="." method="OnServerSelected"]
+[connection signal="pressed" from="ServerListMenu/JoinButton" to="." method="OnJoinPressed"]
+[connection signal="pressed" from="ServerListMenu/RefreshButton" to="." method="OnRefreshPressed"]
+[connection signal="pressed" from="ServerListMenu/CreateButton" to="." method="OnCreatePressed"]
+[connection signal="text_changed" from="CreateMenu/LobbyNameEdit" to="." method="OnLobbyNameChanged"]
+[connection signal="pressed" from="CreateMenu/BackButton" to="." method="OnCreateBackPressed"]
+[connection signal="pressed" from="CreateMenu/OkButton" to="." method="OnCreateOkPressed"]

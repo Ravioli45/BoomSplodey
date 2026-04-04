@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dr4s06qfje2i4"]
+
+[ext_resource type="Script" uid="uid://b8kxkxml2ujw2" path="res://Scripts/Network/LANLobby.cs" id="1_o6qih"]
+[ext_resource type="PackedScene" uid="uid://cgppmbp4oxp57" path="res://Scenes/server_lobby.tscn" id="2_y1fr1"]
+
+[node name="LANLobby" type="Node" unique_id=14250299 node_paths=PackedStringArray("ServerLobby")]
+script = ExtResource("1_o6qih")
+MaxConnections = 4
+ServerPort = 10130
+LANListenerPort = 10131
+LANBroadcasterLowerPort = 10132
+LANBroadcasterUpperPort = 10159
+ServerLobby = NodePath("ServerLobby")
+GameScenePath = "res://Scenes/game_root.tscn"
+
+[node name="GameSpawner" type="MultiplayerSpawner" parent="." unique_id=1852137167]
+_spawnable_scenes = PackedStringArray("uid://cdbeqk2k84qi")
+spawn_path = NodePath("..")
+spawn_limit = 1
+
+[node name="ServerLobby" parent="." unique_id=428426383 instance=ExtResource("2_y1fr1")]
+
+[connection signal="Created" from="ServerLobby" to="." method="OnHost"]
+[connection signal="Joined" from="ServerLobby" to="." method="OnJoin"]
+[connection signal="Refreshed" from="ServerLobby" to="." method="OnRefresh"]
