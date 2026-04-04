@@ -21,7 +21,7 @@ SpawnpointsParent = NodePath("Spawnpoints")
 PlayerScene = ExtResource("2_v7dtr")
 
 [node name="GameObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=2129103822]
-_spawnable_scenes = PackedStringArray("uid://c5h2f2lycfys1")
+_spawnable_scenes = PackedStringArray("uid://c5h2f2lycfys1", "uid://g42xuwxr15n3", "uid://cjkbvslao06jv", "uid://dow40tl4btnvv")
 spawn_path = NodePath("..")
 
 [node name="Spawnpoints" type="Node" parent="." unique_id=1754487651]

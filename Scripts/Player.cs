@@ -107,6 +107,10 @@ public partial class Player : CharacterBody2D
 
             // TODO: replace with actually shooting something
             PlayerWeapon.PlayShootAnimation();
+
+            ShootProjectile();
+                
+
         }
         InputSync.Shooting = false;
 
@@ -186,5 +190,34 @@ public partial class Player : CharacterBody2D
     {
         nextRecoil.X += recoil.X;
         nextRecoil.Y = recoil.Y;
+    }
+
+    public void ShootProjectile()
+    {
+        
+        if(!Multiplayer.IsServer())return;
+                if(WeaponIndex == 0 || WeaponIndex == 1)
+                {
+                    var projectile =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
+                    projectile.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X;
+
+                    if(WeaponIndex == 0 ){
+                            GD.Print("SHOTGUN SPREAADS");
+                            //We need to insert Shotgun spread logic here.
+                    }
+
+                        //Spawn and Set
+                        GetParent().AddChild(projectile, true);
+                        projectile.Rotation = PlayerWeapon.Rotation;
+                        projectile.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                }
+                else if(WeaponIndex == 2)
+                {
+                    var projectile =  PlayerWeapon.Resource.BulletScene.Instantiate<AbstractPotato>();
+                    projectile.Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X;
+                    projectile.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                    GetParent().AddChild(projectile, true);
+                
+                }                
     }
 }
