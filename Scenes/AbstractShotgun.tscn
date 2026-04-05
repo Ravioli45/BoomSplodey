@@ -18,6 +18,8 @@ radius = 5.0
 [node name="Node2D" type="Node2D" unique_id=1597943644]
 scale = Vector2(3.035, 3.035)
 script = ExtResource("1_yaie8")
+damage = 0.5
+knockback = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=928360920]
 texture_filter = 1
@@ -27,6 +29,8 @@ texture = ExtResource("2_tspai")
 replication_config = SubResource("SceneReplicationConfig_ym16g")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1155238677]
+collision_layer = 8
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=832122912]
 shape = SubResource("CircleShape2D_hvphw")
@@ -34,3 +38,5 @@ shape = SubResource("CircleShape2D_hvphw")
 [node name="LinearMovement" type="Node2D" parent="." unique_id=768128668]
 script = ExtResource("3_tspai")
 ProjectileSpeed = 1000.0
+
+[connection signal="body_entered" from="Area2D" to="." method="Hit"]

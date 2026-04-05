@@ -4,7 +4,9 @@ using System;
 public partial class Projectile : Node2D
 {
 	[Export]
-	public int damage = 1;
+	public float damage = 1.0f;
+	[Export]
+	public float knockback;
 
 	public Node playerOwner;
 
@@ -15,9 +17,16 @@ public partial class Projectile : Node2D
 
 	public virtual void Hit(Node body)
     {
+		if(!Multiplayer.IsServer()) 
+			return;
+
         if (body == playerOwner)
             return;
-
+		else if (body is Player p)
+		{
+			p.TakeDamage(damage);
+			p.TakeKnockback(GetNode<LinearMovement>("LinearMovement").Direction * knockback);
+		}
         QueueFree();
     }
 }

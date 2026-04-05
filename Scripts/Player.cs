@@ -77,6 +77,10 @@ public partial class Player : CharacterBody2D
     private Weapon PlayerWeapon;
     [Export]
     private AnimatedSprite2D PlayerSprite;
+    [Export]
+    private float maxHP = 3.0f;
+    [Export]
+    private float currentHP = 3.0f;
 
     private Vector2 nextRecoil = new();
 
@@ -192,6 +196,18 @@ public partial class Player : CharacterBody2D
         nextRecoil.Y = recoil.Y;
     }
 
+    public void TakeDamage(float damage)
+    {
+        if (!Multiplayer.IsServer())
+            return;
+        currentHP = Mathf.Max(currentHP - damage, 0);
+        GD.Print($"HP: {currentHP}/{maxHP}");
+        if (currentHP == 0)
+        {
+            // Call the death/respawn method here
+        }
+    }
+
     public void ShootProjectile()
     {
         
@@ -201,15 +217,27 @@ public partial class Player : CharacterBody2D
                     var projectile =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
                     projectile.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X;
 
-                    if(WeaponIndex == 0 ){
-                            GD.Print("SHOTGUN SPREAADS");
-                            //We need to insert Shotgun spread logic here.
+                    if(WeaponIndex == 0){
+                            // Shotgun spread bullets
+                            var projectile2 =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
+                            GetParent().AddChild(projectile2, true);
+                            projectile2.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X.Rotated(0.1f);
+                            projectile2.Rotation = PlayerWeapon.Rotation;
+                            projectile2.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                            projectile2.playerOwner = this;
+                            var projectile3 =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
+                            GetParent().AddChild(projectile3, true);
+                            projectile3.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X.Rotated(-0.1f);
+                            projectile3.Rotation = PlayerWeapon.Rotation;
+                            projectile3.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                            projectile3.playerOwner = this;
                     }
 
                         //Spawn and Set
                         GetParent().AddChild(projectile, true);
                         projectile.Rotation = PlayerWeapon.Rotation;
                         projectile.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                        projectile.playerOwner = this;
                 }
                 else if(WeaponIndex == 2)
                 {
