@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cypir3uralrf1" path="res://SpriteSheets/PotatoeProjectile.png" id="2_wpvwu"]
 [ext_resource type="Texture2D" uid="uid://nm8120tuds5c" path="res://SpriteSheets/whitePuff24.png" id="3_sf8p4"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xdsg7"]
+friction = 0.4
+bounce = 0.55
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m3tvk"]
 properties/0/path = NodePath(".:linear_velocity")
 properties/0/spawn = true
@@ -14,6 +18,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:Direction")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_odq5p"]
 atlas = ExtResource("2_wpvwu")
@@ -54,9 +61,15 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x83jf"]
 height = 36.0
 
-[node name="PotatoProjectile" type="RigidBody2D" unique_id=683994867 node_paths=PackedStringArray("col")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdsg7"]
+radius = 320.89407
+
+[node name="PotatoProjectile" type="RigidBody2D" unique_id=683994867 node_paths=PackedStringArray("area")]
+collision_layer = 0
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_xdsg7")
 script = ExtResource("1_wpvwu")
-col = NodePath("CollisionShape2D")
+area = NodePath("Area2D")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=469256393]
 replication_config = SubResource("SceneReplicationConfig_m3tvk")
@@ -64,6 +77,8 @@ replication_config = SubResource("SceneReplicationConfig_m3tvk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1376998849]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_b6cfu")
+frame = 2
+frame_progress = 1.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=602706309]
 amount = 6
@@ -73,16 +88,30 @@ speed_scale = 0.37
 explosiveness = 0.54
 randomness = 0.1
 emission_shape = 3
-emission_rect_extents = Vector2(14.05, 1)
+emission_rect_extents = Vector2(47.38, 1)
 gravity = Vector2(0, -300)
-scale_amount_min = 0.01
-scale_amount_max = 0.01
+scale_amount_min = 0.03
+scale_amount_max = 0.04
 scale_amount_curve = SubResource("Curve_fpvb8")
 color = Color(0.70380783, 0.70380783, 0.70380783, 1)
 color_ramp = SubResource("Gradient_r5gsh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1197017417]
+visible = false
 rotation = 1.5707964
 scale = Vector2(3, 3)
 shape = SubResource("CapsuleShape2D_x83jf")
-disabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=357995420]
+wait_time = 3.0
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2034861028]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1747390272]
+visible = false
+shape = SubResource("CircleShape2D_xdsg7")
+
+[connection signal="timeout" from="Timer" to="." method="Explode"]
