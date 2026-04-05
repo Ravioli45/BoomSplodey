@@ -12,6 +12,12 @@ public partial class AbstractPotato : RigidBody2D
 
 	[Export]
 	public int LaunchSpeed = 2000;
+
+	[Export]
+	public float damage = 1.0f;
+	[Export]
+	public float knockback;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -38,8 +44,9 @@ public partial class AbstractPotato : RigidBody2D
         foreach (var body in area.GetOverlappingBodies())
         {
 			if(body is Player P){
-            GD.Print("Hit: " + P.Name);
-			//(Player)body.takedamage
+            	GD.Print("Hit: " + P.Name);
+				P.TakeDamage(damage);
+				P.TakeKnockback(Position.DirectionTo(P.Position) * knockback);
 			}
         }
 		QueueFree();

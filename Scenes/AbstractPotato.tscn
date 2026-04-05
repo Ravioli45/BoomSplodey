@@ -70,6 +70,7 @@ mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_xdsg7")
 script = ExtResource("1_wpvwu")
 area = NodePath("Area2D")
+knockback = 3000.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=469256393]
 replication_config = SubResource("SceneReplicationConfig_m3tvk")
