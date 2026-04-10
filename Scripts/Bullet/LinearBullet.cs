@@ -14,7 +14,7 @@ public partial class LinearBullet : Bullet
         {
             if (collision.GetCollider() is Player p)
             {
-                p.TakeDamage(Damage);
+                p.TakeDamage(OwnerId, Damage);
                 //p.TakeKnockback(KnockbackStrength * GlobalTransform.X);
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);
             }

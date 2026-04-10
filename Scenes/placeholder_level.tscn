@@ -67,6 +67,6 @@ metadata/_edit_lock_ = true
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Wall2/CollisionShape2D" unique_id=618431599]
 mesh = SubResource("QuadMesh_v7dtr")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=763922158]
+[node name="FollowCamera" type="Camera2D" parent="." unique_id=763922158]
 position = Vector2(607, 355)
 zoom = Vector2(0.405, 0.405)

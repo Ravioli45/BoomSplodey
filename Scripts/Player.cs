@@ -3,6 +3,11 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+    [Signal]
+    public delegate void DamagedByEventHandler(long playerId, int damage);
+    [Signal]
+    public delegate void KilledByEventHandler(long playerId);
+
     private static readonly StringName DefaultAnimation = new("default");
     private static readonly StringName WalkAnimation = new("walk");
     private static readonly StringName JumpAnimation = new("jump");
@@ -80,7 +85,25 @@ public partial class Player : CharacterBody2D
     [Export]
     private int maxHP = 6;
     [Export]
-    private int currentHP = 6;
+    private int currentHP
+    {
+        get => field;
+        set
+        {
+            field = Mathf.Clamp(value, 0, 6);
+
+            if (IsNodeReady())
+            {
+                HeartDisplay.UpdateHearts(field);
+            }
+        }
+    } = 6;
+    [Export]
+    private bool CanShoot = true;
+    [Export]
+    private Timer FireRateTimer;
+    [Export]
+    private HealthBar HeartDisplay;
 
     private Vector2 nextRecoil = new();
 
@@ -89,7 +112,8 @@ public partial class Player : CharacterBody2D
         base._Ready();
 
         WeaponIndex = WeaponIndex;
-        
+        currentHP = currentHP;
+
         // temporary
         //SetPhysicsProcess(Multiplayer.IsServer());
     }
@@ -104,7 +128,7 @@ public partial class Player : CharacterBody2D
         //PlayerWeapon.FlipV = (-Mathf.Pi / 2) <= PlayerWeapon.Rotation && PlayerWeapon.Rotation < (Mathf.Pi/2);
         PlayerWeapon.Scale = new Vector2(1, (-Mathf.Pi / 2) <= PlayerWeapon.Rotation && PlayerWeapon.Rotation < (Mathf.Pi / 2) ? 1 : -1);
 
-        if (InputSync.Shooting && PlayerWeapon.Resource != null)
+        if (InputSync.Shooting && CanShoot && PlayerWeapon.Resource != null)
         {
             Vector2 recoil = new Vector2(Mathf.Cos(PlayerWeapon.Rotation), Mathf.Sin(PlayerWeapon.Rotation)) * PlayerWeapon.Resource.RecoilStrength * -1;
             TakeKnockback(recoil);
@@ -113,6 +137,9 @@ public partial class Player : CharacterBody2D
             PlayerWeapon.PlayShootAnimation();
 
             Shoot();
+
+            CanShoot = false;
+            FireRateTimer.Start(1/PlayerWeapon.Resource.FireRate);
         }
         InputSync.Shooting = false;
 
@@ -124,18 +151,18 @@ public partial class Player : CharacterBody2D
         }
 
         if (!IsOnFloor())
-            {
-                currentVelocity += GetGravity() * GravityScale * (float)delta;
+        {
+            currentVelocity += GetGravity() * GravityScale * (float)delta;
 
-                if (currentVelocity.Y > TerminalVelocity)
-                {
-                    currentVelocity.Y = TerminalVelocity;
-                }
-            }
-            else if (InputSync.Jumping)
+            if (currentVelocity.Y > TerminalVelocity)
             {
-                currentVelocity.Y = -JumpStrength;
+                currentVelocity.Y = TerminalVelocity;
             }
+        }
+        else if (InputSync.Jumping)
+        {
+            currentVelocity.Y = -JumpStrength;
+        }
         InputSync.Jumping = false;
 
         float targetXVelocity = InputSync.InputMove * MoveSpeed;
@@ -194,16 +221,18 @@ public partial class Player : CharacterBody2D
         nextRecoil.Y = recoil.Y;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(long damagedBy, int damage)
     {
         if (!Multiplayer.IsServer())
             return;
-        
+
+        EmitSignalDamagedBy(damagedBy, damage);
         currentHP = Mathf.Max(currentHP - damage, 0);
         GD.Print($"HP: {currentHP}/{maxHP}");
         if (currentHP == 0)
         {
             // Call the death/respawn method here
+            EmitSignalKilledBy(damagedBy);
         }
     }
 
@@ -211,7 +240,7 @@ public partial class Player : CharacterBody2D
     {
 
         if (!Multiplayer.IsServer()) return;
-        
+
 
         Bullet newBullet = PlayerWeapon.Resource.BulletScene.Instantiate<Bullet>();
         newBullet.OwnerId = OwnerId;
@@ -239,6 +268,14 @@ public partial class Player : CharacterBody2D
                 moreBullet.AddCollisionExceptionWith(this);
                 GetParent().AddChild(moreBullet, true);
             }
+        }
+    }
+
+    private void OnFireRateTimeout()
+    {
+        if (Multiplayer.IsServer())
+        {
+            CanShoot = true;
         }
     }
 }

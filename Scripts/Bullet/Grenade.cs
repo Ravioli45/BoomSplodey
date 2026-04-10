@@ -52,7 +52,7 @@ public partial class Grenade : Bullet
         {
             if (body is Player p)
             {
-                p.TakeDamage(Damage);
+                p.TakeDamage(OwnerId, Damage);
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);
             }
         }

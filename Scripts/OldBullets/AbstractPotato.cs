@@ -45,7 +45,7 @@ public partial class AbstractPotato : RigidBody2D
         {
 			if(body is Player P){
             	GD.Print("Hit: " + P.Name);
-				P.TakeDamage(damage);
+				P.TakeDamage(0, damage);
 				P.TakeKnockback(Position.DirectionTo(P.Position) * knockback);
 			}
         }

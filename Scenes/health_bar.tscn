@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bple8mt1kvbly"]
+
+[ext_resource type="Texture2D" uid="uid://bqehg6rfuxcbr" path="res://SpriteSheets/BSHeart.png" id="1_78m4n"]
+[ext_resource type="Script" uid="uid://blcnbc6nlepr8" path="res://Scripts/HealthBar.cs" id="1_qay8w"]
+[ext_resource type="Texture2D" uid="uid://7n838gok1ui0" path="res://SpriteSheets/BSHalfHeart.png" id="3_wjrfg"]
+
+[node name="HealthBar" type="Control" unique_id=1369993995 node_paths=PackedStringArray("Hearts")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qay8w")
+FullHeartTexture = ExtResource("1_78m4n")
+HalfHeartTexture = ExtResource("3_wjrfg")
+Hearts = [NodePath("HeartsContainer/Heart1"), NodePath("HeartsContainer/Heart2"), NodePath("HeartsContainer/Heart3")]
+
+[node name="HeartsContainer" type="HBoxContainer" parent="." unique_id=1294391917]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 0
+offset_left = -52.0
+offset_top = -16.0
+offset_right = 52.0
+offset_bottom = 16.0
+
+[node name="Heart1" type="TextureRect" parent="HeartsContainer" unique_id=791953556]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_78m4n")
+
+[node name="Heart2" type="TextureRect" parent="HeartsContainer" unique_id=1232763435]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_78m4n")
+
+[node name="Heart3" type="TextureRect" parent="HeartsContainer" unique_id=268660350]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_wjrfg")

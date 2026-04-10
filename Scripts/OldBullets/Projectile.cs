@@ -24,7 +24,7 @@ public partial class Projectile : Node2D
             return;
 		else if (body is Player p)
 		{
-			p.TakeDamage(damage);
+			p.TakeDamage(0, damage);
 			p.TakeKnockback(GetNode<LinearMovement>("LinearMovement").Direction * knockback);
 		}
         QueueFree();
