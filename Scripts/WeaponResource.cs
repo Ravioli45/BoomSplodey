@@ -55,6 +55,17 @@ public partial class WeaponResource : Resource
             EmitChanged();
         }
     }
+    private float _fireStrength = 0.0f;
+    [Export]
+    public float FireStrength
+    {
+        get => _fireStrength;
+        set
+        {
+            _fireStrength = value;
+            EmitChanged();
+        }
+    }
 
     [ExportSubgroup("Bullet")]
     private Vector2 _bulletSpawnOffset = Vector2.Zero;
@@ -83,9 +94,9 @@ public partial class WeaponResource : Resource
         }
     }
 
-    public WeaponResource() : this(null, Vector2.Zero, 0.0f, 0.0f, Vector2.Zero, null) { }
+    public WeaponResource() : this(null, Vector2.Zero, 0.0f, 0.0f, 0.0f, Vector2.Zero, null) { }
 
-    public WeaponResource(SpriteFrames spriteAnimations, Vector2 spriteOffset, float fireRate, float recoilStrength, Vector2 bulletSpawnOffset, PackedScene bulletScene)
+    public WeaponResource(SpriteFrames spriteAnimations, Vector2 spriteOffset, float fireRate, float recoilStrength, float fireStrength, Vector2 bulletSpawnOffset, PackedScene bulletScene)
     {
         //SpriteAnimations = spriteAnimations;
         //BulletSpawnOffset = bulletSpawnOffset;
@@ -94,6 +105,7 @@ public partial class WeaponResource : Resource
 
         _fireRate = fireRate;
         _recoilStrength = recoilStrength;
+        _fireStrength = fireStrength;
 
         _bulletSpawnOffset = bulletSpawnOffset;
         _bulletScene = bulletScene;

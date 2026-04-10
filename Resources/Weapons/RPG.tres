@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://cdcoxq37k8r3s"]
 
 [ext_resource type="Texture2D" uid="uid://q4hfenixdtyq" path="res://SpriteSheets/RPGBS.png" id="1_6l17g"]
-[ext_resource type="PackedScene" uid="uid://g42xuwxr15n3" path="res://Scenes/AbstractedRocket.tscn" id="1_u4xxm"]
+[ext_resource type="PackedScene" uid="uid://cqg6kah8mw3px" path="res://Scenes/Bullets/rocket.tscn" id="1_u4xxm"]
 [ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="2_u4xxm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
@@ -58,6 +58,7 @@ SpriteAnimations = SubResource("SpriteFrames_7dp3o")
 SpriteOffset = Vector2(0, -2.5)
 FireRate = 0.5
 RecoilStrength = 2000.0
+FireStrength = 2000.0
 BulletSpawnOffset = Vector2(62, 0)
 BulletScene = ExtResource("1_u4xxm")
 metadata/_custom_type_script = "uid://hww2vyb0oeef"

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://g42xuwxr15n3"]
 
-[ext_resource type="Script" uid="uid://1q4ex8rih6tw" path="res://Scripts/Projectile.cs" id="1_lsgaj"]
+[ext_resource type="Script" uid="uid://1q4ex8rih6tw" path="res://Scripts/OldBullets/Projectile.cs" id="1_lsgaj"]
 [ext_resource type="Texture2D" uid="uid://buk7eka653bqq" path="res://SpriteSheets/RPGProjectile.png" id="2_2oudp"]
 [ext_resource type="Texture2D" uid="uid://inlmtgxh621n" path="res://SpriteSheets/blackSmoke04.png" id="3_2w578"]
-[ext_resource type="Script" uid="uid://iprhfa1t7tdk" path="res://Scripts/LinearMovement.cs" id="4_27f2j"]
+[ext_resource type="Script" uid="uid://iprhfa1t7tdk" path="res://Scripts/OldBullets/LinearMovement.cs" id="4_27f2j"]
 
 [sub_resource type="Curve" id="Curve_dfvjn"]
 _data = [Vector2(0.07978723, 0.84269667), 0.0, 0.0, 0, 0, Vector2(0.89361703, 0.39325845), 0.0, 0.0, 0, 0]

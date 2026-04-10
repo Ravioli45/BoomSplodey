@@ -34,7 +34,7 @@ properties/5/spawn = true
 properties/5/replication_mode = 2
 properties/6/path = NodePath(".:currentHP")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("1_v0iea")
@@ -101,7 +101,7 @@ size = Vector2(120, 267)
 
 [node name="Player" type="CharacterBody2D" unique_id=1361488487 node_paths=PackedStringArray("InputSync", "PlayerWeapon", "PlayerSprite")]
 collision_layer = 4
-collision_mask = 15
+collision_mask = 7
 platform_floor_layers = 4278190083
 script = ExtResource("1_cvnsp")
 InputSync = NodePath("InputSynchronizer")
@@ -115,8 +115,6 @@ TerminalVelocity = 5000.0
 JumpStrength = 1500.0
 PlayerWeapon = NodePath("Weapon")
 PlayerSprite = NodePath("PlayerSprite")
-maxHP = 3.0
-currentHP = 3.0
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=23913859]
 root_path = NodePath(".")

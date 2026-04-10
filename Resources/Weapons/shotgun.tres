@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="1_53qpw"]
 [ext_resource type="Texture2D" uid="uid://cvw7nfenihsk0" path="res://SpriteSheets/ShotgunBS.png" id="1_akvmd"]
-[ext_resource type="PackedScene" uid="uid://dow40tl4btnvv" path="res://Scenes/AbstractShotgun.tscn" id="1_guom4"]
+[ext_resource type="PackedScene" uid="uid://unr0gewy5ie" path="res://Scenes/Bullets/shotgun_bullet.tscn" id="1_guom4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
 atlas = ExtResource("1_akvmd")
@@ -51,6 +51,7 @@ SpriteAnimations = SubResource("SpriteFrames_ukyrk")
 SpriteOffset = Vector2(0, -35)
 FireRate = 0.5
 RecoilStrength = 3000.0
+FireStrength = 1000.0
 BulletSpawnOffset = Vector2(100, 0)
 BulletScene = ExtResource("1_guom4")
 metadata/_custom_type_script = "uid://hww2vyb0oeef"

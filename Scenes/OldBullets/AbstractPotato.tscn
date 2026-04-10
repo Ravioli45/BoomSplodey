@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cjkbvslao06jv"]
 
-[ext_resource type="Script" uid="uid://3a4h0qimg4p2" path="res://Scripts/AbstractPotato.cs" id="1_wpvwu"]
+[ext_resource type="Script" uid="uid://3a4h0qimg4p2" path="res://Scripts/OldBullets/AbstractPotato.cs" id="1_wpvwu"]
 [ext_resource type="Texture2D" uid="uid://cypir3uralrf1" path="res://SpriteSheets/PotatoeProjectile.png" id="2_wpvwu"]
 [ext_resource type="Texture2D" uid="uid://nm8120tuds5c" path="res://SpriteSheets/whitePuff24.png" id="3_sf8p4"]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://dnl86c1u0ivn1"]
 
-[ext_resource type="PackedScene" uid="uid://cjkbvslao06jv" path="res://Scenes/AbstractPotato.tscn" id="1_css1j"]
+[ext_resource type="PackedScene" uid="uid://dphfgkpwys83x" path="res://Scenes/Bullets/potato_grenade.tscn" id="1_css1j"]
 [ext_resource type="Texture2D" uid="uid://b7c654egyfp72" path="res://SpriteSheets/PotatoLauncherBS.png" id="1_elv78"]
 [ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="2_css1j"]
 
@@ -58,6 +58,7 @@ SpriteAnimations = SubResource("SpriteFrames_7dp3o")
 SpriteOffset = Vector2(0, -20)
 FireRate = 0.5
 RecoilStrength = 1000.0
+FireStrength = 2000.0
 BulletSpawnOffset = Vector2(75, 0)
 BulletScene = ExtResource("1_css1j")
 metadata/_custom_type_script = "uid://hww2vyb0oeef"

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dow40tl4btnvv"]
 
-[ext_resource type="Script" uid="uid://1q4ex8rih6tw" path="res://Scripts/Projectile.cs" id="1_yaie8"]
+[ext_resource type="Script" uid="uid://1q4ex8rih6tw" path="res://Scripts/OldBullets/Projectile.cs" id="1_yaie8"]
 [ext_resource type="Texture2D" uid="uid://d2x8o1vdt11hy" path="res://SpriteSheets/ShotgunProj.png" id="2_tspai"]
-[ext_resource type="Script" uid="uid://iprhfa1t7tdk" path="res://Scripts/LinearMovement.cs" id="3_tspai"]
+[ext_resource type="Script" uid="uid://iprhfa1t7tdk" path="res://Scripts/OldBullets/LinearMovement.cs" id="3_tspai"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ym16g"]
 properties/0/path = NodePath(".:rotation")

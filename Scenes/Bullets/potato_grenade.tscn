@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dphfgkpwys83x"]
+
+[ext_resource type="Script" uid="uid://c1v8l66skdvxv" path="res://Scripts/Bullet/Grenade.cs" id="1_icsl5"]
+[ext_resource type="Texture2D" uid="uid://cypir3uralrf1" path="res://SpriteSheets/PotatoeProjectile.png" id="1_rtei1"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icsl5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:OwnerId")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_icsl5"]
+atlas = ExtResource("1_rtei1")
+region = Rect2(0, 0, 34, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0pd1"]
+atlas = ExtResource("1_rtei1")
+region = Rect2(34, 0, 34, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4661w"]
+atlas = ExtResource("1_rtei1")
+region = Rect2(68, 0, 34, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ccyhl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_icsl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0pd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4661w")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rtei1"]
+radius = 28.0
+height = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_icsl5"]
+radius = 320.0
+
+[node name="PotatoGrenade" type="CharacterBody2D" unique_id=304563534 node_paths=PackedStringArray("ExplosionArea", "Collider")]
+collision_layer = 8
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_icsl5")
+ExplosionArea = NodePath("ExplosionArea")
+GravityScale = 1.5
+Bounciness = 0.7
+Damage = 2
+KnockbackStrength = 3000.0
+Collider = NodePath("CollisionShape2D")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=279377372]
+replication_config = SubResource("SceneReplicationConfig_icsl5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=674931225]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_ccyhl")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=137308750]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rtei1")
+
+[node name="ExplosionTimer" type="Timer" parent="." unique_id=805483981]
+process_callback = 0
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="ExplosionArea" type="Area2D" parent="." unique_id=1584487268]
+collision_layer = 16
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea" unique_id=687925838]
+shape = SubResource("CircleShape2D_icsl5")
+
+[connection signal="timeout" from="ExplosionTimer" to="." method="OnExplodeTimeout"]

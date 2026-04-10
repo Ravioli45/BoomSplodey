@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cqg6kah8mw3px"]
+
+[ext_resource type="Script" uid="uid://v2mydb5nx4p8" path="res://Scripts/Bullet/LinearBullet.cs" id="1_e2qnh"]
+[ext_resource type="Texture2D" uid="uid://buk7eka653bqq" path="res://SpriteSheets/RPGProjectile.png" id="2_dby06"]
+[ext_resource type="Texture2D" uid="uid://inlmtgxh621n" path="res://SpriteSheets/blackSmoke04.png" id="3_dby06"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dby06"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:OwnerId")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_waj5w"]
+radius = 26.0
+height = 126.0
+
+[sub_resource type="Curve" id="Curve_waj5w"]
+_data = [Vector2(0.07978723, 0.84269667), 0.0, 0.0, 0, 0, Vector2(0.89361703, 0.39325845), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8n8ls"]
+offsets = PackedFloat32Array(0.32098764, 1)
+colors = PackedColorArray(0.8850986, 0.52054715, 0.15434232, 1, 0.21391118, 0.005697258, 0.05295694, 1)
+
+[node name="Rocket" type="CharacterBody2D" unique_id=1264478584 node_paths=PackedStringArray("Collider")]
+collision_layer = 8
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_e2qnh")
+Damage = 2
+KnockbackStrength = 2000.0
+Collider = NodePath("CollisionShape2D")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1579423150]
+replication_config = SubResource("SceneReplicationConfig_dby06")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=986370547]
+texture = ExtResource("2_dby06")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=848421830]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_waj5w")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=736704126]
+position = Vector2(-61, 1)
+amount = 22
+texture = ExtResource("3_dby06")
+lifetime = 0.52
+explosiveness = 0.08
+randomness = 0.1
+gravity = Vector2(0, -300)
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_waj5w")
+color_ramp = SubResource("Gradient_8n8ls")

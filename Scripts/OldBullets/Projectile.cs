@@ -4,7 +4,7 @@ using System;
 public partial class Projectile : Node2D
 {
 	[Export]
-	public float damage = 1.0f;
+	public int damage = 1;
 	[Export]
 	public float knockback;
 

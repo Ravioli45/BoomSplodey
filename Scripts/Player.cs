@@ -78,9 +78,9 @@ public partial class Player : CharacterBody2D
     [Export]
     private AnimatedSprite2D PlayerSprite;
     [Export]
-    private float maxHP = 3.0f;
+    private int maxHP = 6;
     [Export]
-    private float currentHP = 3.0f;
+    private int currentHP = 6;
 
     private Vector2 nextRecoil = new();
 
@@ -112,9 +112,7 @@ public partial class Player : CharacterBody2D
             // TODO: replace with actually shooting something
             PlayerWeapon.PlayShootAnimation();
 
-            ShootProjectile();
-                
-
+            Shoot();
         }
         InputSync.Shooting = false;
 
@@ -196,10 +194,11 @@ public partial class Player : CharacterBody2D
         nextRecoil.Y = recoil.Y;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (!Multiplayer.IsServer())
             return;
+        
         currentHP = Mathf.Max(currentHP - damage, 0);
         GD.Print($"HP: {currentHP}/{maxHP}");
         if (currentHP == 0)
@@ -208,44 +207,38 @@ public partial class Player : CharacterBody2D
         }
     }
 
-    public void ShootProjectile()
+    public void Shoot()
     {
+
+        if (!Multiplayer.IsServer()) return;
         
-        if(!Multiplayer.IsServer())return;
-                if(WeaponIndex == 0 || WeaponIndex == 1)
-                {
-                    var projectile =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
-                    projectile.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X;
 
-                    if(WeaponIndex == 0){
-                            // Shotgun spread bullets
-                            var projectile2 =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
-                            GetParent().AddChild(projectile2, true);
-                            projectile2.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X.Rotated(0.1f);
-                            projectile2.Rotation = PlayerWeapon.Rotation;
-                            projectile2.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
-                            projectile2.playerOwner = this;
-                            var projectile3 =  PlayerWeapon.Resource.BulletScene.Instantiate() as Projectile;
-                            GetParent().AddChild(projectile3, true);
-                            projectile3.GetNode<LinearMovement>("LinearMovement").Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X.Rotated(-0.1f);
-                            projectile3.Rotation = PlayerWeapon.Rotation;
-                            projectile3.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
-                            projectile3.playerOwner = this;
-                    }
+        Bullet newBullet = PlayerWeapon.Resource.BulletScene.Instantiate<Bullet>();
+        newBullet.OwnerId = OwnerId;
+        newBullet.Rotation = PlayerWeapon.Rotation;
+        newBullet.GlobalPosition = PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+        newBullet.Velocity = PlayerWeapon.Resource.FireStrength * newBullet.GlobalTransform.X;
 
-                        //Spawn and Set
-                        GetParent().AddChild(projectile, true);
-                        projectile.Rotation = PlayerWeapon.Rotation;
-                        projectile.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
-                        projectile.playerOwner = this;
-                }
-                else if(WeaponIndex == 2)
-                {
-                    var projectile =  PlayerWeapon.Resource.BulletScene.Instantiate<AbstractPotato>();
-                    projectile.Direction = PlayerWeapon.BulletSpawnpoint.GlobalTransform.X;
-                    projectile.GlobalPosition  =  PlayerWeapon.BulletSpawnpoint.GlobalPosition;
-                    GetParent().AddChild(projectile, true);
-                
-                }                
+        // only the server has this
+        // but bullet collision is disabled for clients
+        newBullet.AddCollisionExceptionWith(this);
+
+        GetParent().AddChild(newBullet, true);
+
+        // for now I will leave the shotgun like this
+        if (WeaponIndex == 0)
+        {
+            for (int i = -1; i <= 1; i += 2)
+            {
+                Bullet moreBullet = PlayerWeapon.Resource.BulletScene.Instantiate<Bullet>();
+                moreBullet.OwnerId = OwnerId;
+                moreBullet.Rotation = PlayerWeapon.Rotation + 0.1f * i;
+                moreBullet.GlobalPosition = PlayerWeapon.BulletSpawnpoint.GlobalPosition;
+                moreBullet.Velocity = PlayerWeapon.Resource.FireStrength * moreBullet.GlobalTransform.X;
+
+                moreBullet.AddCollisionExceptionWith(this);
+                GetParent().AddChild(moreBullet, true);
+            }
+        }
     }
 }

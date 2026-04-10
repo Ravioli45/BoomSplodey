@@ -14,7 +14,7 @@ public partial class AbstractPotato : RigidBody2D
 	public int LaunchSpeed = 2000;
 
 	[Export]
-	public float damage = 1.0f;
+	public int damage = 1;
 	[Export]
 	public float knockback;
 
