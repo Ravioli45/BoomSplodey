@@ -137,8 +137,10 @@ public partial class GameRoot : Node
         foreach ((long id, PlayerDisplay display) in Displays)
         {
             GD.Print(display.Info);
-            Level.AddPlayer(id, display.Info);
+            //Level.AddPlayer(id, display.Info);
         }
+        
+        Level.InitialSpawnPlayers(Displays.Select(kvp => (kvp.Key, kvp.Value.Info)).ToArray());
 
         Rpc(MethodName.DisableGameLobbyUI);
 

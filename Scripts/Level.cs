@@ -27,7 +27,7 @@ public partial class Level : Node2D
         }
     }
 
-    public void AddPlayer(long id, PlayerInfo info = null)
+    public void AddPlayer(long id, PlayerInfo info = null, int? spawnPointIndex = null)
     {
         if (!Multiplayer.IsServer())
         {
@@ -38,7 +38,8 @@ public partial class Level : Node2D
 
         Player newPlayer = PlayerScene.Instantiate<Player>();
 
-        newPlayer.Position = Spawnpoints.PickRandom().Position;
+        //newPlayer.Position = Spawnpoints.PickRandom().Position;
+        newPlayer.Position = spawnPointIndex.HasValue ? Spawnpoints[spawnPointIndex.Value].Position : Spawnpoints.PickRandom().Position;
         //newPlayer.WeaponIndex = GD.RandRange(0, GlobalResources.Instance.Weapons.Count - 1);
         newPlayer.WeaponIndex = info?.SelectedWeapon ?? 0;
         newPlayer.HatIndex = info?.SelectedHat ?? 0;
@@ -61,5 +62,22 @@ public partial class Level : Node2D
         PlayerObjects.Remove(id);
 
         oldPlayer.QueueFree();
+    }
+
+    public void InitialSpawnPlayers((long, PlayerInfo)[] players)
+    {
+        if (!Multiplayer.IsServer())
+        {
+            GD.Print("only server can initialize level");
+            return;
+        }
+
+        GD.Print(players);
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            var (id, info) = players[i];
+            AddPlayer(id, info, i);
+        }
     }
 }

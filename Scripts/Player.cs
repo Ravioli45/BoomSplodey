@@ -176,12 +176,14 @@ public partial class Player : CharacterBody2D
         }
         InputSync.Shooting = false;
 
+        /*
         if (nextRecoil != Vector2.Zero)
         {
             currentVelocity.X += nextRecoil.X;
             currentVelocity.Y = nextRecoil.Y;
             nextRecoil = Vector2.Zero;
         }
+        */
 
         if (!IsOnFloor())
         {
@@ -196,7 +198,18 @@ public partial class Player : CharacterBody2D
         {
             currentVelocity.Y = -JumpStrength;
         }
+        else
+        {
+            currentVelocity.Y = 0;
+        }
         InputSync.Jumping = false;
+
+        if (nextRecoil != Vector2.Zero)
+        {
+            currentVelocity.X += nextRecoil.X;
+            currentVelocity.Y = nextRecoil.Y;
+            nextRecoil = Vector2.Zero;
+        }
 
         float targetXVelocity = InputSync.InputMove * MoveSpeed;
         float targetVelDiff = targetXVelocity - currentVelocity.X;

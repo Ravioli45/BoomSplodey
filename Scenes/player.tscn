@@ -146,7 +146,6 @@ sprite_frames = SubResource("SpriteFrames_8erm5")
 texture = ExtResource("4_x3wgy")
 offset = Vector2(-5, -85)
 hframes = 11
-frame = 1
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=580686199]
 position = Vector2(8, 4.5)

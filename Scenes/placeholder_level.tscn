@@ -30,7 +30,7 @@ spawn_path = NodePath("..")
 position = Vector2(607, 355)
 
 [node name="Node2D2" type="Node2D" parent="Spawnpoints" unique_id=1506040353]
-position = Vector2(607, 61)
+position = Vector2(607, -99)
 
 [node name="Node2D3" type="Node2D" parent="Spawnpoints" unique_id=1495384036]
 position = Vector2(1087, 0)
