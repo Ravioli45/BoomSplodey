@@ -27,7 +27,7 @@ public partial class Level : Node2D
         }
     }
 
-    public void AddPlayer(long id)
+    public void AddPlayer(long id, PlayerInfo info = null)
     {
         if (!Multiplayer.IsServer())
         {
@@ -39,7 +39,10 @@ public partial class Level : Node2D
         Player newPlayer = PlayerScene.Instantiate<Player>();
 
         newPlayer.Position = Spawnpoints.PickRandom().Position;
-        newPlayer.WeaponIndex = GD.RandRange(0, GlobalResources.Instance.Weapons.Count - 1);
+        //newPlayer.WeaponIndex = GD.RandRange(0, GlobalResources.Instance.Weapons.Count - 1);
+        newPlayer.WeaponIndex = info?.SelectedWeapon ?? 0;
+        newPlayer.HatIndex = info?.SelectedHat ?? 0;
+        newPlayer.PlayerName = info?.PlayerName ?? "";
         newPlayer.OwnerId = id;
         AddChild(newPlayer, true);
 

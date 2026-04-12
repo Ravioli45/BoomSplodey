@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using Godot.Collections;
+using System.Linq;
 
 public partial class GameRoot : Node
 {
@@ -25,7 +26,7 @@ public partial class GameRoot : Node
 
     // TODO: replace byte with something useful
     [Export]
-    private Dictionary<long, byte> PlayerInfo = [];
+    private Dictionary<long, PlayerDisplay> Displays = [];
 
     [Export]
     private Control GameLobbyUI;
@@ -36,6 +37,11 @@ public partial class GameRoot : Node
     private string LevelScenePath;
     [Export]
     private Level Level;
+
+    [Export]
+    private PackedScene PlayerDisplayScene;
+    [Export]
+    private Container PlayerDisplayContainer;
 
     public bool Started { get; private set; } = false;
 
@@ -54,12 +60,20 @@ public partial class GameRoot : Node
             return;
         }
 
-        PlayerInfo.Add(id, 0);
+        PlayerDisplay newDisplay = PlayerDisplayScene.Instantiate<PlayerDisplay>();
+        newDisplay.OwnerId = id;
+        // TODO: connect signals
+        newDisplay.ReadyToggled += OnReadyToggled;
+
+        Displays.Add(id, newDisplay);
+        PlayerDisplayContainer.AddChild(newDisplay, true);
 
         if (Started && IsInstanceValid(Level))
         {
             Level.AddPlayer(id);
         }
+
+        OnReadyToggled();
     }
 
     public void RemovePlayer(long id)
@@ -70,12 +84,22 @@ public partial class GameRoot : Node
             return;
         }
 
-        PlayerInfo.Remove(id);
+        //Displays.Remove(id);
+        if (Displays.TryGetValue(id, out PlayerDisplay display))
+        {
+            Displays.Remove(id);
+            // TODO: disconnect signals
+            display.ReadyToggled -= OnReadyToggled;
+
+            display.QueueFree();
+        }
 
         if (Started && IsInstanceValid(Level))
         {
             Level.RemovePlayer(id);
         }
+
+        OnReadyToggled();
     }
 
     private void UpdateHostUI()
@@ -88,6 +112,11 @@ public partial class GameRoot : Node
         {
             StartButton.Visible = false;
         }
+    }
+
+    private bool CanGameStart()
+    {
+        return Displays.Count >= 2 && Displays.Values.All(display => display.Info.IsReady);
     }
 
     [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -105,14 +134,16 @@ public partial class GameRoot : Node
         Level = levelScene.Instantiate<Level>();
         AddChild(Level, true);
 
-        foreach ((long id, var _options) in PlayerInfo)
+        foreach ((long id, PlayerDisplay display) in Displays)
         {
-            Level.AddPlayer(id);
+            GD.Print(display.Info);
+            Level.AddPlayer(id, display.Info);
         }
 
         Rpc(MethodName.DisableGameLobbyUI);
 
         Started = true;
+        EmitSignalGameStarted();
     }
 
     [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -131,5 +162,34 @@ public partial class GameRoot : Node
         }
 
         RpcId(1, MethodName.StartGame);
+    }
+
+    private void OnReadyToggled()
+    {
+        //GD.Print("game root ready toggle");
+        if (!Multiplayer.IsServer())
+        {
+            GD.PushWarning("Only server should be here");
+            return;
+        }
+
+        //RpcId(HostId, MethodName.SetStartButtonDisabled, !CanGameStart());
+        Rpc(MethodName.SetStartButtonDisabled, !CanGameStart());
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    private void SetStartButtonDisabled(bool disabled)
+    {
+        /*
+        if (Multiplayer.GetRemoteSenderId() == 1 && Multiplayer.GetUniqueId() == HostId)
+        {
+            StartButton.Disabled = disabled;
+        }
+        else
+        {
+            GD.PushWarning("bad rpc call for SetStartButton");
+        }
+        */
+        StartButton.Disabled = disabled;
     }
 }

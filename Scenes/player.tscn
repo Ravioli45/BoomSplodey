@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3d44xao42otm" path="res://SpriteSheets/Boomsplodeanmovement.png" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://bd6gs3dk5nehu" path="res://Scripts/InputSynchronizer.cs" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cc4ho5c3iisai" path="res://Scenes/weapon.tscn" id="4_vgqql"]
+[ext_resource type="Texture2D" uid="uid://cao1r0h6kb74u" path="res://SpriteSheets/HatDemo.png" id="4_x3wgy"]
 [ext_resource type="PackedScene" uid="uid://bple8mt1kvbly" path="res://Scenes/health_bar.tscn" id="5_fkybt"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6t5aa"]
@@ -39,6 +40,12 @@ properties/6/replication_mode = 2
 properties/7/path = NodePath(".:CanShoot")
 properties/7/spawn = true
 properties/7/replication_mode = 2
+properties/8/path = NodePath(".:HatIndex")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath(".:PlayerName")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("1_v0iea")
@@ -103,10 +110,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(120, 267)
 
-[node name="Player" type="CharacterBody2D" unique_id=1361488487 node_paths=PackedStringArray("InputSync", "PlayerWeapon", "PlayerSprite", "FireRateTimer", "HeartDisplay")]
+[node name="Player" type="CharacterBody2D" unique_id=1361488487 node_paths=PackedStringArray("InputSync", "PlayerWeapon", "HatSprite", "PlayerSprite", "FireRateTimer", "HeartDisplay", "PlayerNameLabel")]
 collision_layer = 4
 collision_mask = 7
-platform_floor_layers = 4278190083
+platform_floor_layers = 4278190087
 script = ExtResource("1_cvnsp")
 InputSync = NodePath("InputSynchronizer")
 MoveSpeed = 900.0
@@ -118,9 +125,11 @@ GravityScale = 3.0
 TerminalVelocity = 5000.0
 JumpStrength = 1500.0
 PlayerWeapon = NodePath("Weapon")
+HatSprite = NodePath("HatSprite")
 PlayerSprite = NodePath("PlayerSprite")
 FireRateTimer = NodePath("FireRateTimer")
 HeartDisplay = NodePath("HealthBar")
+PlayerNameLabel = NodePath("PlayerNameLabel")
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=23913859]
 root_path = NodePath(".")
@@ -132,6 +141,12 @@ replication_config = SubResource("SceneReplicationConfig_cvnsp")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=1167088119]
 sprite_frames = SubResource("SpriteFrames_8erm5")
+
+[node name="HatSprite" type="Sprite2D" parent="." unique_id=868696823]
+texture = ExtResource("4_x3wgy")
+offset = Vector2(-5, -85)
+hframes = 11
+frame = 1
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="." unique_id=580686199]
 position = Vector2(8, 4.5)
@@ -145,8 +160,24 @@ process_callback = 0
 one_shot = true
 
 [node name="HealthBar" parent="." unique_id=1369993995 instance=ExtResource("5_fkybt")]
-offset_top = -190.0
-offset_bottom = -190.0
+offset_top = -213.0
+offset_bottom = -213.0
 scale = Vector2(2, 2)
+
+[node name="PlayerNameLabel" type="Label" parent="." unique_id=364733146]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -294.0
+offset_right = 101.0
+offset_bottom = -244.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="FireRateTimer" to="." method="OnFireRateTimeout"]

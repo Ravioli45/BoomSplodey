@@ -81,6 +81,22 @@ public partial class Player : CharacterBody2D
     [Export]
     private Weapon PlayerWeapon;
     [Export]
+    public int HatIndex
+    {
+        get => field;
+        set
+        {
+            field = value;
+
+            if (IsNodeReady())
+            {
+                HatSprite.Frame = field;
+            }
+        }
+    } = 0;
+    [Export]
+    private Sprite2D HatSprite;
+    [Export]
     private AnimatedSprite2D PlayerSprite;
     [Export]
     private int maxHP = 6;
@@ -104,6 +120,22 @@ public partial class Player : CharacterBody2D
     private Timer FireRateTimer;
     [Export]
     private HealthBar HeartDisplay;
+    [Export]
+    public string PlayerName
+    {
+        get => field;
+        set
+        {
+            field = value;
+
+            if (IsNodeReady())
+            {
+                PlayerNameLabel.Text = field;
+            }
+        }
+    } = "";
+    [Export]
+    private Label PlayerNameLabel;
 
     private Vector2 nextRecoil = new();
 
@@ -113,7 +145,8 @@ public partial class Player : CharacterBody2D
 
         WeaponIndex = WeaponIndex;
         currentHP = currentHP;
-
+        HatIndex = HatIndex;
+        PlayerName = PlayerName;
         // temporary
         //SetPhysicsProcess(Multiplayer.IsServer());
     }
@@ -191,10 +224,12 @@ public partial class Player : CharacterBody2D
         if (InputSync.InputMove > 0)
         {
             PlayerSprite.FlipH = false;
+            HatSprite.FlipH = false;
         }
         else if (InputSync.InputMove < 0)
         {
             PlayerSprite.FlipH = true;
+            HatSprite.FlipH = true;
         }
 
         if (!IsOnFloor())

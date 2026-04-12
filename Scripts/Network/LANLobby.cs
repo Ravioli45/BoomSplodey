@@ -415,5 +415,6 @@ public partial class LANLobby : Node
     {
         GD.Print("closing search connection on game start");
         CloseSearchConnection();
+        Multiplayer.MultiplayerPeer?.RefuseNewConnections = true;
     }
 }
