@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dtxbpf8lhlyr8"]
+
+[ext_resource type="Script" uid="uid://bvwebgsrsglpp" path="res://Scripts/FollowCamera.cs" id="1_qm2hi"]
+
+[node name="FollowCamera" type="Camera2D" unique_id=1356433978]
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("1_qm2hi")

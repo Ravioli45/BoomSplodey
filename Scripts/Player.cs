@@ -137,6 +137,9 @@ public partial class Player : CharacterBody2D
     [Export]
     private Label PlayerNameLabel;
 
+    [Export]
+    private FollowCamera PlayerCamera;
+
     private Vector2 nextRecoil = new();
 
     public override void _Ready()
@@ -149,6 +152,14 @@ public partial class Player : CharacterBody2D
         PlayerName = PlayerName;
         // temporary
         //SetPhysicsProcess(Multiplayer.IsServer());
+
+        // see if level has a camera
+        if (Multiplayer.GetUniqueId() == OwnerId && GetParent().GetNode<FollowCamera>("%FollowCamera") is FollowCamera c)
+        {
+            PlayerCamera = c;
+            PlayerCamera.Target = this;
+            PlayerCamera.Following = true;
+        }
     }
 
     public override void _PhysicsProcess(double delta)

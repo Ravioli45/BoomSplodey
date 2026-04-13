@@ -13,12 +13,12 @@ properties/1/replication_mode = 2
 
 [node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton", "LevelDropdown", "PlayerDisplayContainer")]
 script = ExtResource("1_y37ms")
-GameLobbyUI = NodePath("GameLobby")
-StartButton = NodePath("GameLobby/StartButton")
-LevelDropdown = NodePath("GameLobby/LevelDropdown")
+GameLobbyUI = NodePath("UILayer/GameLobby")
+StartButton = NodePath("UILayer/GameLobby/StartButton")
+LevelDropdown = NodePath("UILayer/GameLobby/LevelDropdown")
 LevelScenePath = "res://Scenes/placeholder_level.tscn"
 PlayerDisplayScene = ExtResource("2_02ly6")
-PlayerDisplayContainer = NodePath("GameLobby/PlayerDisplayContainer")
+PlayerDisplayContainer = NodePath("UILayer/GameLobby/PlayerDisplayContainer")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=406327277]
 _spawnable_scenes = PackedStringArray("uid://cx0gse28pkqxl", "uid://dx8sxwrqk7u6k", "uid://wyq7ct2qndjv", "uid://bnpj32kqa4btr")
@@ -28,7 +28,9 @@ spawn_limit = 1
 [node name="GameRootSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=667537452]
 replication_config = SubResource("SceneReplicationConfig_y37ms")
 
-[node name="GameLobby" type="Control" parent="." unique_id=2126129550]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=555314278]
+
+[node name="GameLobby" type="Control" parent="UILayer" unique_id=2126129550]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="GAME" type="Label" parent="GameLobby" unique_id=1716787957]
+[node name="GAME" type="Label" parent="UILayer/GameLobby" unique_id=1716787957]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.264
@@ -49,7 +51,7 @@ text = "COOL GAME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerDisplayContainer" type="GridContainer" parent="GameLobby" unique_id=251590160]
+[node name="PlayerDisplayContainer" type="GridContainer" parent="UILayer/GameLobby" unique_id=251590160]
 custom_minimum_size = Vector2(1000, 375)
 layout_mode = 1
 anchors_preset = -1
@@ -63,12 +65,12 @@ offset_right = -0.47998047
 offset_bottom = -0.2000122
 columns = 4
 
-[node name="DisplaySpawner" type="MultiplayerSpawner" parent="GameLobby/PlayerDisplayContainer" unique_id=251571633]
+[node name="DisplaySpawner" type="MultiplayerSpawner" parent="UILayer/GameLobby/PlayerDisplayContainer" unique_id=251571633]
 _spawnable_scenes = PackedStringArray("uid://bnpcr5w64hiyn")
 spawn_path = NodePath("..")
 spawn_limit = 4
 
-[node name="StartButton" type="Button" parent="GameLobby" unique_id=324662977]
+[node name="StartButton" type="Button" parent="UILayer/GameLobby" unique_id=324662977]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7515625
@@ -82,7 +84,7 @@ disabled = true
 text = "Start"
 metadata/_edit_use_anchors_ = true
 
-[node name="LevelDropdown" type="OptionButton" parent="GameLobby" unique_id=1691433079]
+[node name="LevelDropdown" type="OptionButton" parent="UILayer/GameLobby" unique_id=1691433079]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.10921876
@@ -105,5 +107,5 @@ popup/item_2/text = "Construction Zone"
 popup/item_2/id = 2
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="GameLobby/StartButton" to="." method="OnStartPressed"]
-[connection signal="item_selected" from="GameLobby/LevelDropdown" to="." method="OnLevelSelected"]
+[connection signal="pressed" from="UILayer/GameLobby/StartButton" to="." method="OnStartPressed"]
+[connection signal="item_selected" from="UILayer/GameLobby/LevelDropdown" to="." method="OnLevelSelected"]

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c5h2f2lycfys1" path="res://Scenes/player.tscn" id="2_n42he"]
 [ext_resource type="PackedScene" uid="uid://bcr0wi80dwxui" path="res://Scenes/game_object_spawner.tscn" id="3_mnret"]
 [ext_resource type="TileSet" uid="uid://knnos3aqpqjs" path="res://SpriteSheets/TileSets/BoomSplodeyTileset.tres" id="4_n42he"]
+[ext_resource type="PackedScene" uid="uid://dtxbpf8lhlyr8" path="res://Scenes/follow_camera.tscn" id="6_sqytp"]
 
 [node name="DesertLevel" type="Node2D" unique_id=681857077 node_paths=PackedStringArray("SpawnpointsParent")]
 script = ExtResource("1_ep4fr")
@@ -36,6 +37,5 @@ position = Vector2(-4122, -673)
 [node name="Node2D4" type="Node2D" parent="SpawnPoints" unique_id=1154673337]
 position = Vector2(3149, -300)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1936607559]
-offset = Vector2(0, -1355.18)
-zoom = Vector2(0.08, 0.08)
+[node name="FollowCamera" parent="." unique_id=1356433978 instance=ExtResource("6_sqytp")]
+unique_name_in_owner = true
