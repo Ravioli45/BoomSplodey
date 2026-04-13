@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://knnos3aqpqjs" path="res://SpriteSheets/TileSets/BoomSplodeyTileset.tres" id="1_2hmba"]
 [ext_resource type="Script" uid="uid://cglyfkjk3kp85" path="res://Scripts/Level.cs" id="1_eoywx"]
 [ext_resource type="PackedScene" uid="uid://c5h2f2lycfys1" path="res://Scenes/player.tscn" id="2_d1a27"]
+[ext_resource type="PackedScene" uid="uid://bcr0wi80dwxui" path="res://Scenes/game_object_spawner.tscn" id="3_fsnsg"]
 
 [sub_resource type="Gradient" id="Gradient_eoywx"]
 offsets = PackedFloat32Array(0)
@@ -16,14 +17,12 @@ script = ExtResource("1_eoywx")
 SpawnpointsParent = NodePath("SpawnPoints")
 PlayerScene = ExtResource("2_d1a27")
 
+[node name="GameObjectSpawner" parent="." unique_id=380239694 instance=ExtResource("3_fsnsg")]
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1737079980]
 position = Vector2(66.49963, -1548.0004)
 scale = Vector2(98.76952, 19930)
 texture = SubResource("GradientTexture1D_d1a27")
-
-[node name="GameObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=2061600045]
-_spawnable_scenes = PackedStringArray("uid://c5h2f2lycfys1", "uid://g42xuwxr15n3", "uid://cjkbvslao06jv", "uid://dow40tl4btnvv")
-spawn_path = NodePath("..")
 
 [node name="SpawnPoints" type="Node" parent="." unique_id=182521577]
 
@@ -40,7 +39,6 @@ position = Vector2(8, -411)
 position = Vector2(16, -4181)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=42836977]
-visible = false
 offset = Vector2(0, -1355.18)
 zoom = Vector2(0.08, 0.08)
 

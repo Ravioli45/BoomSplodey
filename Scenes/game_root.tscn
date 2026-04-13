@@ -7,17 +7,21 @@
 properties/0/path = NodePath(".:HostId")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:SelectedLevel")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
-[node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton", "PlayerDisplayContainer")]
+[node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton", "LevelDropdown", "PlayerDisplayContainer")]
 script = ExtResource("1_y37ms")
 GameLobbyUI = NodePath("GameLobby")
 StartButton = NodePath("GameLobby/StartButton")
+LevelDropdown = NodePath("GameLobby/LevelDropdown")
 LevelScenePath = "res://Scenes/placeholder_level.tscn"
 PlayerDisplayScene = ExtResource("2_02ly6")
 PlayerDisplayContainer = NodePath("GameLobby/PlayerDisplayContainer")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=406327277]
-_spawnable_scenes = PackedStringArray("uid://cx0gse28pkqxl")
+_spawnable_scenes = PackedStringArray("uid://cx0gse28pkqxl", "uid://dx8sxwrqk7u6k", "uid://wyq7ct2qndjv", "uid://bnpj32kqa4btr")
 spawn_path = NodePath("..")
 spawn_limit = 1
 
@@ -78,4 +82,28 @@ disabled = true
 text = "Start"
 metadata/_edit_use_anchors_ = true
 
+[node name="LevelDropdown" type="OptionButton" parent="GameLobby" unique_id=1691433079]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10921876
+anchor_top = 0.825
+anchor_right = 0.37821874
+anchor_bottom = 0.92200005
+offset_left = 0.19998169
+offset_right = -0.11999512
+offset_bottom = 0.15999603
+theme_override_font_sizes/font_size = 35
+disabled = true
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Boot Camp"
+popup/item_0/id = 0
+popup/item_1/text = "Desert"
+popup/item_1/id = 1
+popup/item_2/text = "Construction Zone"
+popup/item_2/id = 2
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="GameLobby/StartButton" to="." method="OnStartPressed"]
+[connection signal="item_selected" from="GameLobby/LevelDropdown" to="." method="OnLevelSelected"]

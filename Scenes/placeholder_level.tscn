@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cglyfkjk3kp85" path="res://Scripts/Level.cs" id="1_k8lij"]
 [ext_resource type="PackedScene" uid="uid://c5h2f2lycfys1" path="res://Scenes/player.tscn" id="2_v7dtr"]
+[ext_resource type="PackedScene" uid="uid://bcr0wi80dwxui" path="res://Scenes/game_object_spawner.tscn" id="3_idvid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s4hs8"]
 size = Vector2(2000, 100)
@@ -20,9 +21,7 @@ script = ExtResource("1_k8lij")
 SpawnpointsParent = NodePath("Spawnpoints")
 PlayerScene = ExtResource("2_v7dtr")
 
-[node name="GameObjectSpawner" type="MultiplayerSpawner" parent="." unique_id=2129103822]
-_spawnable_scenes = PackedStringArray("uid://c5h2f2lycfys1", "uid://cqg6kah8mw3px", "uid://unr0gewy5ie", "uid://dphfgkpwys83x")
-spawn_path = NodePath("..")
+[node name="GameObjectSpawner" parent="." unique_id=380239694 instance=ExtResource("3_idvid")]
 
 [node name="Spawnpoints" type="Node" parent="." unique_id=1754487651]
 

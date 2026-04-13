@@ -8,3 +8,4 @@
 [node name="GlobalResources" type="Node" unique_id=1947013935]
 script = ExtResource("1_jh8f0")
 Weapons = Array[Object]([ExtResource("2_qsdv5"), ExtResource("3_pcofn"), ExtResource("4_x4ja0")])
+LevelScenePaths = Array[String](["res://Scenes/Levels/boot_camp.tscn", "res://Scenes/Levels/desert_level.tscn", "res://Scenes/Levels/under_construction_level.tscn"])

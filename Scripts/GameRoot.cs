@@ -32,6 +32,23 @@ public partial class GameRoot : Node
     private Control GameLobbyUI;
     [Export]
     private Button StartButton;
+    [Export]
+    private int SelectedLevel
+    {
+        get => field;
+        set
+        {
+            field = Mathf.Clamp(value, 0, 2);
+
+            //TODO: change level
+            if (IsNodeReady())
+            {
+                LevelDropdown.Selected = field;
+            }
+        }
+    } = 0;
+    [Export]
+    private OptionButton LevelDropdown;
 
     [Export(PropertyHint.FilePath)]
     private string LevelScenePath;
@@ -50,6 +67,8 @@ public partial class GameRoot : Node
         base._Ready();
 
         UpdateHostUI();
+
+        SelectedLevel = SelectedLevel;
     }
 
     public void AddPlayer(long id)
@@ -107,10 +126,12 @@ public partial class GameRoot : Node
         if (Multiplayer.GetUniqueId() == HostId)
         {
             StartButton.Visible = true;
+            LevelDropdown.Disabled = false;
         }
         else
         {
             StartButton.Visible = false;
+            LevelDropdown.Disabled = true;
         }
     }
 
@@ -130,7 +151,8 @@ public partial class GameRoot : Node
 
         GD.Print("Starting game");
 
-        PackedScene levelScene = GD.Load<PackedScene>(LevelScenePath);
+        //PackedScene levelScene = GD.Load<PackedScene>(LevelScenePath);
+        PackedScene levelScene = GD.Load<PackedScene>(GlobalResources.Instance.LevelScenePaths[SelectedLevel]);
         Level = levelScene.Instantiate<Level>();
         AddChild(Level, true);
 
@@ -146,6 +168,18 @@ public partial class GameRoot : Node
 
         Started = true;
         EmitSignalGameStarted();
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    private void SelectLevel(int index)
+    {
+        if (!Multiplayer.IsServer() || Multiplayer.GetRemoteSenderId() != HostId)
+        {
+            GD.PushWarning("level select must be requested to server by host");
+            return;
+        }
+
+        SelectedLevel = index;
     }
 
     [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -164,6 +198,16 @@ public partial class GameRoot : Node
         }
 
         RpcId(1, MethodName.StartGame);
+    }
+    private void OnLevelSelected(int index)
+    {
+        if (Multiplayer.GetUniqueId() != HostId)
+        {
+            GD.PushWarning("only host should be selecting level");
+            return;
+        }
+
+        RpcId(1, MethodName.SelectLevel, index);
     }
 
     private void OnReadyToggled()
