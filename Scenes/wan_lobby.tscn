@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://brlc8j50h43wt"]
+
+[ext_resource type="Script" uid="uid://beiiq321ak75h" path="res://Scripts/Network/WANLobby.cs" id="1_7p2gv"]
+[ext_resource type="PackedScene" uid="uid://cgppmbp4oxp57" path="res://Scenes/server_lobby.tscn" id="2_8dg5s"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8dg5s"]
+properties/0/path = NodePath(".:HostId")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="WANLobby" type="Node" unique_id=2132597845 node_paths=PackedStringArray("ServerLobby")]
+script = ExtResource("1_7p2gv")
+ServerIP = "20.110.216.100"
+ServerPort = 8080
+MaxPlayers = 4
+ServerLobby = NodePath("ServerLobby")
+GameScenePath = "res://Scenes/game_root.tscn"
+
+[node name="GameSpawner" type="MultiplayerSpawner" parent="." unique_id=114695034]
+_spawnable_scenes = PackedStringArray("uid://cdbeqk2k84qi")
+spawn_path = NodePath("..")
+spawn_limit = 1
+
+[node name="ServerLobbySynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2137589890]
+replication_config = SubResource("SceneReplicationConfig_8dg5s")
+
+[node name="ServerLobby" parent="." unique_id=428426383 instance=ExtResource("2_8dg5s")]
+
+[connection signal="Created" from="ServerLobby" to="." method="OnHost"]
+[connection signal="Joined" from="ServerLobby" to="." method="OnJoin"]
+[connection signal="Refreshed" from="ServerLobby" to="." method="OnRefresh"]

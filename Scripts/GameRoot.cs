@@ -140,7 +140,7 @@ public partial class GameRoot : Node
         return Displays.Count >= 2 && Displays.Values.All(display => display.Info.IsReady);
     }
 
-    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     private void StartGame()
     {
         if (!Multiplayer.IsServer() || Multiplayer.GetRemoteSenderId() != HostId)
