@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://557nkyv6bjl5"]
+
+[ext_resource type="Texture2D" uid="uid://b5vu0ey7fhyq7" path="res://SpriteSheets/ExplosionBS.png" id="1_37tx1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfj16"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_lpvuc"]
+offsets = PackedFloat32Array(0.01923077, 0.2275641, 0.24358974, 0.46153846, 0.4871795, 0.89102566, 0.9423077, 1)
+colors = PackedColorArray(1, 1, 0.07450981, 1, 1, 1, 0.19548893, 1, 1, 0.4117647, 0, 1, 1, 0.5314058, 0.20338984, 1, 1, 0, 0, 1, 1, 0.24817525, 0.24817525, 1, 0, 0, 0, 0.7176471, 0, 0, 0, 0.46666667)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sdjpg"]
+gradient = SubResource("Gradient_lpvuc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_34k2a"]
+lifetime_randomness = 0.42
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(5, 4.035, 5)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 57.21
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 47.0
+angle_min = 1.0728835e-05
+angle_max = 720.0
+gravity = Vector3(0, -98, 0)
+scale_min = 5.0
+scale_max = 8.0
+color_ramp = SubResource("GradientTexture1D_sdjpg")
+anim_speed_min = 1.1
+anim_speed_max = 1.5999999
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1913980389]
+material = SubResource("CanvasItemMaterial_kfj16")
+emitting = false
+amount = 20
+texture = ExtResource("1_37tx1")
+lifetime = 0.5
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.61
+randomness = 0.45
+process_material = SubResource("ParticleProcessMaterial_34k2a")
