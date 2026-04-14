@@ -71,6 +71,17 @@ public partial class GameRoot : Node
         SelectedLevel = SelectedLevel;
     }
 
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+        if (Level != null)
+        {
+            Level.PlayerDamageDealtUpdated -= OnPlayerDamageUpdate;
+            Level.PlayerKilledUpdate -= OnPlayerKillUpdate;
+        }
+    }
+
     public void AddPlayer(long id)
     {
         if (!Multiplayer.IsServer())
@@ -154,6 +165,9 @@ public partial class GameRoot : Node
         //PackedScene levelScene = GD.Load<PackedScene>(LevelScenePath);
         PackedScene levelScene = GD.Load<PackedScene>(GlobalResources.Instance.LevelScenePaths[SelectedLevel]);
         Level = levelScene.Instantiate<Level>();
+        Level.PlayerDamageDealtUpdated += OnPlayerDamageUpdate;
+        Level.PlayerKilledUpdate += OnPlayerKillUpdate;
+
         AddChild(Level, true);
 
         foreach ((long id, PlayerDisplay display) in Displays)
@@ -237,5 +251,20 @@ public partial class GameRoot : Node
         }
         */
         StartButton.Disabled = disabled;
+    }
+
+    private void OnPlayerDamageUpdate(long id, int damage)
+    {
+        if (Displays.TryGetValue(id, out PlayerDisplay d))
+        {
+            d.Info.DamageDealt += damage;
+        }
+    }
+    private void OnPlayerKillUpdate(long id)
+    {
+        if (Displays.TryGetValue(id, out PlayerDisplay d))
+        {
+            d.Info.Kills += 1;
+        }
     }
 }

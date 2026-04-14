@@ -4,6 +4,11 @@ using Godot.Collections;
 
 public partial class Level : Node2D
 {
+    [Signal]
+    public delegate void PlayerDamageDealtUpdatedEventHandler(long id, int damage);
+    [Signal]
+    public delegate void PlayerKilledUpdateEventHandler(long id);
+
     [Export]
     private Node SpawnpointsParent;
 
@@ -38,6 +43,8 @@ public partial class Level : Node2D
 
         Player newPlayer = PlayerScene.Instantiate<Player>();
 
+        newPlayer.DamagedBy += OnPlayerDamagedBy;
+        newPlayer.KilledBy += OnPlayerKilledBy;
         //newPlayer.Position = Spawnpoints.PickRandom().Position;
         newPlayer.Position = spawnPointIndex.HasValue ? Spawnpoints[spawnPointIndex.Value].Position : Spawnpoints.PickRandom().Position;
         //newPlayer.WeaponIndex = GD.RandRange(0, GlobalResources.Instance.Weapons.Count - 1);
@@ -58,10 +65,19 @@ public partial class Level : Node2D
             return;
         }
 
-        Player oldPlayer = PlayerObjects[id];
-        PlayerObjects.Remove(id);
+        //Player oldPlayer = PlayerObjects[id];
+        //PlayerObjects.Remove(id);
 
-        oldPlayer.QueueFree();
+        //oldPlayer.QueueFree();
+
+        if (PlayerObjects.TryGetValue(id, out Player p))
+        {
+            PlayerObjects.Remove(id);
+            p.DamagedBy -= OnPlayerDamagedBy;
+            p.KilledBy -= OnPlayerKilledBy;
+
+            p.QueueFree();
+        }
     }
 
     public void InitialSpawnPlayers((long, PlayerInfo)[] players)
@@ -79,5 +95,29 @@ public partial class Level : Node2D
             var (id, info) = players[i];
             AddPlayer(id, info, i);
         }
+    }
+
+    private void OnPlayerDamagedBy(long id, int damage)
+    {
+        GD.Print($"{id} dealt {damage} damage");
+
+        EmitSignalPlayerDamageDealtUpdated(id, damage);
+    }
+    private void OnPlayerKilledBy(long killer, long died)
+    {
+        GD.Print($"{killer} killed {died}");
+
+        if (PlayerObjects.TryGetValue(died, out Player p))
+        {
+            //p.Velocity = Vector2.Zero;
+            //p.nextRecoil = Vector2.Zero;
+            //p.Position = Spawnpoints.PickRandom().Position;
+            p.currentHP = p.maxHP;
+            p.SetDeferred(Player.PropertyName.Position, Spawnpoints.PickRandom().Position);
+            p.SetDeferred(Player.PropertyName.Velocity, Vector2.Zero);
+            p.SetDeferred(Player.PropertyName.nextRecoil, Vector2.Zero);
+        }
+
+        EmitSignalPlayerKilledUpdate(killer);
     }
 }

@@ -6,7 +6,7 @@ public partial class Player : CharacterBody2D
     [Signal]
     public delegate void DamagedByEventHandler(long playerId, int damage);
     [Signal]
-    public delegate void KilledByEventHandler(long playerId);
+    public delegate void KilledByEventHandler(long killer, long died);
 
     private static readonly StringName DefaultAnimation = new("default");
     private static readonly StringName WalkAnimation = new("walk");
@@ -99,9 +99,9 @@ public partial class Player : CharacterBody2D
     [Export]
     private AnimatedSprite2D PlayerSprite;
     [Export]
-    private int maxHP = 6;
+    public int maxHP = 6;
     [Export]
-    private int currentHP
+    public int currentHP
     {
         get => field;
         set
@@ -140,7 +140,7 @@ public partial class Player : CharacterBody2D
     [Export]
     private FollowCamera PlayerCamera;
 
-    private Vector2 nextRecoil = new();
+    public Vector2 nextRecoil = new();
 
     public override void _Ready()
     {
@@ -291,7 +291,7 @@ public partial class Player : CharacterBody2D
         if (currentHP == 0)
         {
             // Call the death/respawn method here
-            EmitSignalKilledBy(damagedBy);
+            EmitSignalKilledBy(damagedBy, OwnerId);
         }
     }
 

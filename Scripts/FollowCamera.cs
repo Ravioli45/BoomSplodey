@@ -14,7 +14,8 @@ public partial class FollowCamera : Camera2D
 
         if (IsInstanceValid(Target) && Following)
         {
-            GlobalPosition = Target.GlobalPosition;
+            //GlobalPosition = Target.GlobalPosition;
+            GlobalPosition = GlobalPosition.Lerp(Target.GlobalPosition, 0.1f);
         }
         else
         {

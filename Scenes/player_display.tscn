@@ -41,6 +41,12 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:Info:SelectedHat")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:Info:DamageDealt")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:Info:Kills")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="PlayerDisplay" type="Panel" unique_id=851824005 node_paths=PackedStringArray("PlayerNameEdit", "ReadyCheckBox", "WeaponDropdown", "HatDropdown")]
 custom_minimum_size = Vector2(250, 375)
