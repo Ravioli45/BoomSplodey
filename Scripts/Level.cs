@@ -8,6 +8,8 @@ public partial class Level : Node2D
     public delegate void PlayerDamageDealtUpdatedEventHandler(long id, int damage);
     [Signal]
     public delegate void PlayerKilledUpdateEventHandler(long id);
+    [Signal]
+    public delegate void RoundEndedEventHandler();
 
     [Export]
     private Node SpawnpointsParent;
@@ -97,11 +99,11 @@ public partial class Level : Node2D
         }
     }
 
-    private void OnPlayerDamagedBy(long id, int damage)
+    private void OnPlayerDamagedBy(long damagedBy, long damaged, int damage)
     {
-        GD.Print($"{id} dealt {damage} damage");
+        GD.Print($"{damagedBy} dealt {damage} damage");
 
-        EmitSignalPlayerDamageDealtUpdated(id, damage);
+        if (damagedBy != damaged) EmitSignalPlayerDamageDealtUpdated(damagedBy, damage);
     }
     private void OnPlayerKilledBy(long killer, long died)
     {
@@ -109,15 +111,43 @@ public partial class Level : Node2D
 
         if (PlayerObjects.TryGetValue(died, out Player p))
         {
+            p.Disabled = true;
             //p.Velocity = Vector2.Zero;
             //p.nextRecoil = Vector2.Zero;
             //p.Position = Spawnpoints.PickRandom().Position;
-            p.currentHP = p.maxHP;
+            //p.currentHP = p.maxHP;
             p.SetDeferred(Player.PropertyName.Position, Spawnpoints.PickRandom().Position);
             p.SetDeferred(Player.PropertyName.Velocity, Vector2.Zero);
             p.SetDeferred(Player.PropertyName.nextRecoil, Vector2.Zero);
+            p.SetDeferred(Player.PropertyName.currentHP, p.maxHP);
+            p.SetDeferred(Player.PropertyName.Disabled, false);
         }
 
-        EmitSignalPlayerKilledUpdate(killer);
+        if (killer != died) EmitSignalPlayerKilledUpdate(killer);
+    }
+
+    private void OnLevelTimeout()
+    {
+        if (!Multiplayer.IsServer())
+        {
+            return;
+        }
+
+        GD.Print("round ended");
+
+        //foreach (Player p in PlayerObjects.Values)
+        //{
+        //    //p.Disabled = true;
+        //}
+        //GetTree().Paused = true;
+        Rpc(MethodName.StopLevel);
+
+        EmitSignalRoundEnded();
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    private void StopLevel()
+    {
+        ProcessMode = ProcessModeEnum.Disabled;
     }
 }

@@ -50,7 +50,7 @@ public partial class Grenade : Bullet
 
         foreach (Node2D body in ExplosionArea.GetOverlappingBodies())
         {
-            if (body is Player p)
+            if (body is Player p && !p.Disabled)
             {
                 p.TakeDamage(OwnerId, Damage);
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);

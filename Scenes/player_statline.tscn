@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dg42w7t8oijdq"]
+
+[ext_resource type="Script" uid="uid://di4afpkufwofi" path="res://Scripts/PlayerStatline.cs" id="1_7xvpl"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m388u"]
+properties/0/path = NodePath(".:PlayerName")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:Kills")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:DamageDealt")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="PlayerStatline" type="HBoxContainer" unique_id=2020688073 node_paths=PackedStringArray("PlayerNameLabel", "KillsLabel", "DamageDealtLabel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7xvpl")
+PlayerNameLabel = NodePath("NameLabel")
+KillsLabel = NodePath("KillLabel")
+DamageDealtLabel = NodePath("DamageDealtLabel")
+
+[node name="NameLabel" type="Label" parent="." unique_id=2009576537]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KillLabel" type="Label" parent="." unique_id=123876237]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamageDealtLabel" type="Label" parent="." unique_id=654500279]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerStatSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=571862214]
+replication_config = SubResource("SceneReplicationConfig_m388u")

@@ -46,6 +46,9 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath(".:PlayerName")
 properties/9/spawn = true
 properties/9/replication_mode = 2
+properties/10/path = NodePath(".:Disabled")
+properties/10/spawn = true
+properties/10/replication_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
 atlas = ExtResource("1_v0iea")
@@ -168,14 +171,15 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -101.0
-offset_top = -294.0
-offset_right = 101.0
-offset_bottom = -244.0
+offset_left = -251.0
+offset_top = -322.0
+offset_right = 251.0
+offset_bottom = -255.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 48
+text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
 

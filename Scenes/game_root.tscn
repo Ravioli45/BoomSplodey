@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oaihqatgujtk" path="res://Scripts/GameRoot.cs" id="1_y37ms"]
 [ext_resource type="PackedScene" uid="uid://bnpcr5w64hiyn" path="res://Scenes/player_display.tscn" id="2_02ly6"]
+[ext_resource type="PackedScene" uid="uid://dg42w7t8oijdq" path="res://Scenes/player_statline.tscn" id="3_283ij"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y37ms"]
 properties/0/path = NodePath(".:HostId")
@@ -11,7 +12,10 @@ properties/1/path = NodePath(".:SelectedLevel")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 
-[node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton", "LevelDropdown", "PlayerDisplayContainer")]
+[sub_resource type="Theme" id="Theme_02ly6"]
+PopupMenu/font_sizes/font_size = 36
+
+[node name="GameRoot" type="Node" unique_id=1838915989 node_paths=PackedStringArray("GameLobbyUI", "StartButton", "LevelDropdown", "PlayerDisplayContainer", "PlayerStatUI", "PlayerStatsContainer")]
 script = ExtResource("1_y37ms")
 GameLobbyUI = NodePath("UILayer/GameLobby")
 StartButton = NodePath("UILayer/GameLobby/StartButton")
@@ -19,6 +23,9 @@ LevelDropdown = NodePath("UILayer/GameLobby/LevelDropdown")
 LevelScenePath = "res://Scenes/placeholder_level.tscn"
 PlayerDisplayScene = ExtResource("2_02ly6")
 PlayerDisplayContainer = NodePath("UILayer/GameLobby/PlayerDisplayContainer")
+PlayerStatUI = NodePath("UILayer/StatsScreen")
+PlayerStatsScene = ExtResource("3_283ij")
+PlayerStatsContainer = NodePath("UILayer/StatsScreen/PlayerStatsContainer")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=406327277]
 _spawnable_scenes = PackedStringArray("uid://cx0gse28pkqxl", "uid://dx8sxwrqk7u6k", "uid://wyq7ct2qndjv", "uid://bnpj32kqa4btr")
@@ -94,7 +101,8 @@ anchor_bottom = 0.92200005
 offset_left = 0.19998169
 offset_right = -0.11999512
 offset_bottom = 0.15999603
-theme_override_font_sizes/font_size = 35
+theme = SubResource("Theme_02ly6")
+theme_override_font_sizes/font_size = 36
 disabled = true
 alignment = 1
 selected = 0
@@ -106,6 +114,61 @@ popup/item_1/id = 1
 popup/item_2/text = "Construction Zone"
 popup/item_2/id = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="StatsScreen" type="Panel" parent="UILayer" unique_id=646586468]
+process_mode = 4
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="PlayerStatsContainer" type="VBoxContainer" parent="UILayer/StatsScreen" unique_id=1540894891]
+custom_minimum_size = Vector2(1000, 375)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.109000005
+anchor_top = 0.23900001
+anchor_right = 0.89100003
+anchor_bottom = 0.76000005
+offset_left = 0.47999573
+offset_top = -0.08000183
+offset_right = -0.47998047
+offset_bottom = -0.2000122
+
+[node name="PlayerStatsSpawner" type="MultiplayerSpawner" parent="UILayer/StatsScreen/PlayerStatsContainer" unique_id=1003907435]
+_spawnable_scenes = PackedStringArray("uid://dg42w7t8oijdq")
+spawn_path = NodePath("..")
+spawn_limit = 4
+
+[node name="TopRow" type="HBoxContainer" parent="UILayer/StatsScreen/PlayerStatsContainer" unique_id=1290746764]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/StatsScreen/PlayerStatsContainer/TopRow" unique_id=344055042]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="UILayer/StatsScreen/PlayerStatsContainer/TopRow" unique_id=614426940]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Kills"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="UILayer/StatsScreen/PlayerStatsContainer/TopRow" unique_id=572315622]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Damage Dealt"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="UILayer/GameLobby/StartButton" to="." method="OnStartPressed"]
 [connection signal="item_selected" from="UILayer/GameLobby/LevelDropdown" to="." method="OnLevelSelected"]

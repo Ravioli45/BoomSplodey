@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bow1fukl8cpgr"]
+
+[ext_resource type="Script" uid="uid://b2k4arf1fwo1o" path="res://Scripts/LevelTimer.cs" id="1_1csaw"]
+
+[node name="LevelTimer" type="CanvasLayer" unique_id=1530843310 node_paths=PackedStringArray("InternalTimer", "TimerLabel")]
+script = ExtResource("1_1csaw")
+WaitTime = 30.0
+InternalTimer = NodePath("InternalTimer")
+TimerLabel = NodePath("Control/TimerLabel")
+
+[node name="Control" type="Control" parent="." unique_id=1050533708]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="TimerLabel" type="Label" parent="Control" unique_id=877013089]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.07700001
+anchor_right = 0.5
+anchor_bottom = 0.07700001
+offset_left = -252.0
+offset_top = -49.440006
+offset_right = 252.0
+offset_bottom = 49.559994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="InternalTimer" type="Timer" parent="." unique_id=1391632790]
+one_shot = true
+
+[connection signal="timeout" from="InternalTimer" to="." method="OnInternalTimeout"]

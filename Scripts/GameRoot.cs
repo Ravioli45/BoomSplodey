@@ -60,6 +60,13 @@ public partial class GameRoot : Node
     [Export]
     private Container PlayerDisplayContainer;
 
+    [Export]
+    private Control PlayerStatUI;
+    [Export]
+    private PackedScene PlayerStatsScene;
+    [Export]
+    private Container PlayerStatsContainer;
+
     public bool Started { get; private set; } = false;
 
     public override void _Ready()
@@ -79,6 +86,7 @@ public partial class GameRoot : Node
         {
             Level.PlayerDamageDealtUpdated -= OnPlayerDamageUpdate;
             Level.PlayerKilledUpdate -= OnPlayerKillUpdate;
+            Level.RoundEnded -= OnRoundEnded;
         }
     }
 
@@ -167,6 +175,7 @@ public partial class GameRoot : Node
         Level = levelScene.Instantiate<Level>();
         Level.PlayerDamageDealtUpdated += OnPlayerDamageUpdate;
         Level.PlayerKilledUpdate += OnPlayerKillUpdate;
+        Level.RoundEnded += OnRoundEnded;
 
         AddChild(Level, true);
 
@@ -201,6 +210,12 @@ public partial class GameRoot : Node
     {
         GameLobbyUI.ProcessMode = ProcessModeEnum.Disabled;
         GameLobbyUI.Visible = false;
+    }
+    [Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    private void EnablePlayerStatUI()
+    {
+        PlayerStatUI.ProcessMode = ProcessModeEnum.Inherit;
+        PlayerStatUI.Visible = true;
     }
 
     private void OnStartPressed()
@@ -266,5 +281,27 @@ public partial class GameRoot : Node
         {
             d.Info.Kills += 1;
         }
+    }
+    private void OnRoundEnded()
+    {
+        if (!Multiplayer.IsServer())
+        {
+            return;
+        }
+
+        foreach (PlayerInfo info in Displays.Values.Select(x => x.Info).OrderByDescending(x => x.Kills).ThenByDescending(x => x.DamageDealt))
+        {
+            //GD.Print(display.Info);
+            PlayerStatline newStats = PlayerStatsScene.Instantiate<PlayerStatline>();
+
+            newStats.PlayerName = info.PlayerName;
+            newStats.Kills = info.Kills;
+            newStats.DamageDealt = info.DamageDealt;
+
+            PlayerStatsContainer.AddChild(newStats, true);
+        }
+
+        //Rpc(MethodName.EnableGameLobbyUI);
+        Rpc(MethodName.EnablePlayerStatUI);
     }
 }

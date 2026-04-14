@@ -12,7 +12,7 @@ public partial class LinearBullet : Bullet
 
         if (IsInstanceValid(collision) && Multiplayer.IsServer())
         {
-            if (collision.GetCollider() is Player p)
+            if (collision.GetCollider() is Player p && !p.Disabled)
             {
                 p.TakeDamage(OwnerId, Damage);
                 //p.TakeKnockback(KnockbackStrength * GlobalTransform.X);

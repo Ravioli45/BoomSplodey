@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c5h2f2lycfys1" path="res://Scenes/player.tscn" id="2_d1a27"]
 [ext_resource type="PackedScene" uid="uid://bcr0wi80dwxui" path="res://Scenes/game_object_spawner.tscn" id="3_fsnsg"]
 [ext_resource type="PackedScene" uid="uid://dtxbpf8lhlyr8" path="res://Scenes/follow_camera.tscn" id="5_rp1tg"]
+[ext_resource type="PackedScene" uid="uid://bow1fukl8cpgr" path="res://Scenes/level_timer.tscn" id="6_0pout"]
 
 [sub_resource type="Gradient" id="Gradient_eoywx"]
 offsets = PackedFloat32Array(0)
@@ -45,3 +46,7 @@ tile_set = ExtResource("1_2hmba")
 
 [node name="FollowCamera" parent="." unique_id=1356433978 instance=ExtResource("5_rp1tg")]
 unique_name_in_owner = true
+
+[node name="LevelTimer" parent="." unique_id=1530843310 instance=ExtResource("6_0pout")]
+
+[connection signal="Timeout" from="LevelTimer" to="." method="OnLevelTimeout"]

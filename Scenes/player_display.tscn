@@ -48,6 +48,9 @@ properties/6/path = NodePath(".:Info:Kills")
 properties/6/spawn = true
 properties/6/replication_mode = 2
 
+[sub_resource type="Theme" id="Theme_l5yow"]
+PopupMenu/font_sizes/font_size = 24
+
 [node name="PlayerDisplay" type="Panel" unique_id=851824005 node_paths=PackedStringArray("PlayerNameEdit", "ReadyCheckBox", "WeaponDropdown", "HatDropdown")]
 custom_minimum_size = Vector2(250, 375)
 anchors_preset = -1
@@ -64,7 +67,6 @@ PlayerNameEdit = NodePath("PlayerNameEdit")
 ReadyCheckBox = NodePath("ReadyCheckBox")
 WeaponDropdown = NodePath("WeaponDropdown")
 HatDropdown = NodePath("HatDropdown")
-metadata/_edit_lock_ = true
 
 [node name="DisplaySynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=3961048]
 replication_config = SubResource("SceneReplicationConfig_l5yow")
@@ -95,6 +97,7 @@ offset_left = -112.000015
 offset_top = -20.875
 offset_right = 111.999985
 offset_bottom = 21.125
+theme = SubResource("Theme_l5yow")
 theme_override_font_sizes/font_size = 24
 alignment = 1
 selected = 0
@@ -118,6 +121,7 @@ offset_left = -112.000015
 offset_top = -20.875
 offset_right = 111.999985
 offset_bottom = 21.125
+theme = SubResource("Theme_l5yow")
 theme_override_font_sizes/font_size = 24
 alignment = 1
 selected = 0

@@ -4,13 +4,16 @@ using System;
 public partial class Player : CharacterBody2D
 {
     [Signal]
-    public delegate void DamagedByEventHandler(long playerId, int damage);
+    public delegate void DamagedByEventHandler(long damagedBy, long damaged, int damage);
     [Signal]
     public delegate void KilledByEventHandler(long killer, long died);
 
     private static readonly StringName DefaultAnimation = new("default");
     private static readonly StringName WalkAnimation = new("walk");
     private static readonly StringName JumpAnimation = new("jump");
+
+    [Export]
+    public bool Disabled = false;
 
     [ExportSubgroup("Multiplayer")]
     [Export]
@@ -164,6 +167,7 @@ public partial class Player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (Disabled) return;
         base._PhysicsProcess(delta);
 
         Vector2 currentVelocity = Velocity;
@@ -285,7 +289,7 @@ public partial class Player : CharacterBody2D
         if (!Multiplayer.IsServer())
             return;
 
-        EmitSignalDamagedBy(damagedBy, damage);
+        EmitSignalDamagedBy(damagedBy, OwnerId, damage);
         currentHP = Mathf.Max(currentHP - damage, 0);
         GD.Print($"HP: {currentHP}/{maxHP}");
         if (currentHP == 0)
