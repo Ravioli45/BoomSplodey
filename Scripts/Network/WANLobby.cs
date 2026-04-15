@@ -62,10 +62,10 @@ public partial class WANLobby : Node
         //Multiplayer.ConnectedToServer += OnConnectOk;
 
         // emitted on peer after failing to connect to server ?
-        //Multiplayer.ConnectionFailed += OnConnectionFail;
+        Multiplayer.ConnectionFailed += OnConnectionFail;
 
         // emitted on server disconnecting ?
-        //Multiplayer.ServerDisconnected += OnServerDisconnected;
+        Multiplayer.ServerDisconnected += OnServerDisconnected;
 
         if (DisplayServer.GetName() == "headless")
         {
@@ -257,6 +257,17 @@ public partial class WANLobby : Node
                 Game.RemovePlayer(id);
             }
         }
+    }
+    private void OnConnectionFail()
+    {
+        Multiplayer.MultiplayerPeer = null;
+
+        SceneSwitcher.Instance.SwitchToMainMenu();
+    }
+    private void OnServerDisconnected()
+    {
+        Multiplayer.MultiplayerPeer = null;
+        SceneSwitcher.Instance.SwitchToMainMenu();
     }
 
     private void OnFind()

@@ -4,7 +4,7 @@
 
 [node name="LevelTimer" type="CanvasLayer" unique_id=1530843310 node_paths=PackedStringArray("InternalTimer", "TimerLabel")]
 script = ExtResource("1_1csaw")
-WaitTime = 30.0
+WaitTime = 180.0
 InternalTimer = NodePath("InternalTimer")
 TimerLabel = NodePath("Control/TimerLabel")
 
