@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://b8ml35py1m1yw"]
+
+[ext_resource type="Theme" uid="uid://ddnar3wij00gx" path="res://Resources/boom_splodey_ui.tres" id="1_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://dqc8ukk2pwtaa" path="res://SpriteSheets/boomsplodeytitle.png" id="1_28flt"]
+[ext_resource type="Script" uid="uid://bkx0qjahwx7np" path="res://Scripts/MainMenu.cs" id="1_48xlc"]
+
+[node name="MainMenu" type="Control" unique_id=2125774430]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1ehe0")
+script = ExtResource("1_48xlc")
+
+[node name="TitleBG" type="TextureRect" parent="." unique_id=789544811]
+texture_filter = 4
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_28flt")
+metadata/_edit_lock_ = true
+
+[node name="PlayButton" type="Button" parent="." unique_id=901110448]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43318754
+anchor_top = 0.42744446
+anchor_right = 0.56600004
+anchor_bottom = 0.572
+offset_left = 0.5199585
+offset_top = 0.23999023
+offset_right = 0.5199585
+offset_bottom = 0.15997314
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_focus_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_pressed_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_hover_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_disabled_color = Color(0.9098039, 0.80784315, 0.09411765, 0.5019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Play"
+metadata/_edit_use_anchors_ = true
+
+[node name="QuitButton" type="Button" parent="." unique_id=2082673327]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43359375
+anchor_top = 0.61388886
+anchor_right = 0.56640625
+anchor_bottom = 0.76944447
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_focus_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_pressed_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_hover_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9098039, 0.80784315, 0.09411765, 1)
+theme_override_colors/font_disabled_color = Color(0.9098039, 0.80784315, 0.09411765, 0.5019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="PlayButton" to="." method="OnPlayPressed"]
+[connection signal="pressed" from="QuitButton" to="." method="OnQuitPressed"]

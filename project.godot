@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BoomSplodey"
-run/main_scene="uid://brlc8j50h43wt"
+run/main_scene="uid://b8ml35py1m1yw"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -19,12 +19,14 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalResources="*uid://c48gaj4t3u8aw"
+SceneSwitcher="*uid://l3pjxqqvjg1s"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 

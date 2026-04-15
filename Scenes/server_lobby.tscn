@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cgppmbp4oxp57"]
 
 [ext_resource type="Script" uid="uid://cd7d2n68ybn41" path="res://Scripts/ServerLobby.cs" id="1_tinf2"]
+[ext_resource type="Theme" uid="uid://ddnar3wij00gx" path="res://Resources/boom_splodey_ui.tres" id="2_lxwkd"]
 
 [node name="ServerLobby" type="Control" unique_id=428426383 node_paths=PackedStringArray("ServerListMenu", "ServerList", "CreateMenu")]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_lxwkd")
 script = ExtResource("1_tinf2")
 ServerListMenu = NodePath("ServerListMenu")
 ServerList = NodePath("ServerListMenu/ServerList")
@@ -25,6 +27,7 @@ grow_vertical = 2
 metadata/_edit_lock_ = true
 
 [node name="ServerList" type="ItemList" parent="ServerListMenu" unique_id=1755811417]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.06171875

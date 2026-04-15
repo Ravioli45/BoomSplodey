@@ -1,24 +1,8 @@
 [gd_scene format=3 uid="uid://bnpcr5w64hiyn"]
 
+[ext_resource type="Texture2D" uid="uid://b0hpa2h4i0ovq" path="res://SpriteSheets/BSInterface9patch.png" id="1_hvfr4"]
 [ext_resource type="Script" uid="uid://cfeuqilgnxv4b" path="res://Scripts/PlayerDisplay.cs" id="1_l5yow"]
 [ext_resource type="Script" uid="uid://bhh1wyodej7f3" path="res://Scripts/PlayerInfo.cs" id="2_hvfr4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rxb8n"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0, 0, 0, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
 
 [sub_resource type="Resource" id="Resource_fxyai"]
 resource_local_to_scene = true
@@ -51,7 +35,7 @@ properties/6/replication_mode = 2
 [sub_resource type="Theme" id="Theme_l5yow"]
 PopupMenu/font_sizes/font_size = 24
 
-[node name="PlayerDisplay" type="Panel" unique_id=851824005 node_paths=PackedStringArray("PlayerNameEdit", "ReadyCheckBox", "WeaponDropdown", "HatDropdown")]
+[node name="PlayerDisplay" type="NinePatchRect" unique_id=257971171 node_paths=PackedStringArray("PlayerNameEdit", "ReadyCheckBox", "WeaponDropdown", "HatDropdown")]
 custom_minimum_size = Vector2(250, 375)
 anchors_preset = -1
 anchor_right = 0.19500001
@@ -60,7 +44,13 @@ offset_right = 0.3999939
 offset_bottom = -0.120025635
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rxb8n")
+texture = ExtResource("1_hvfr4")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 script = ExtResource("1_l5yow")
 Info = SubResource("Resource_fxyai")
 PlayerNameEdit = NodePath("PlayerNameEdit")

@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://oaihqatgujtk" path="res://Scripts/GameRoot.cs" id="1_y37ms"]
 [ext_resource type="PackedScene" uid="uid://bnpcr5w64hiyn" path="res://Scenes/player_display.tscn" id="2_02ly6"]
 [ext_resource type="PackedScene" uid="uid://dg42w7t8oijdq" path="res://Scenes/player_statline.tscn" id="3_283ij"]
+[ext_resource type="Texture2D" uid="uid://1mx8s8vdwpm1" path="res://SpriteSheets/BSInterfaceRedbuttonhover9face.png" id="4_cxcy3"]
+[ext_resource type="Theme" uid="uid://ddnar3wij00gx" path="res://Resources/boom_splodey_ui.tres" id="4_moi6w"]
+[ext_resource type="Texture2D" uid="uid://cuxmepn8c7vvq" path="res://SpriteSheets/BSInterfaceRedbutton9face.png" id="5_moi6w"]
+[ext_resource type="Texture2D" uid="uid://bey63mw1fsdtx" path="res://SpriteSheets/BSInterfaceRedbuttonpressed9face.png" id="6_kqw3b"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y37ms"]
 properties/0/path = NodePath(".:HostId")
@@ -11,6 +15,41 @@ properties/0/replication_mode = 2
 properties/1/path = NodePath(".:SelectedLevel")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vdlci"]
+texture = ExtResource("5_moi6w")
+texture_margin_left = 17.0
+texture_margin_top = 17.0
+texture_margin_right = 17.0
+texture_margin_bottom = 17.0
+modulate_color = Color(1, 1, 1, 0.3019608)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nrrv6"]
+texture = ExtResource("4_cxcy3")
+texture_margin_left = 17.0
+texture_margin_top = 17.0
+texture_margin_right = 17.0
+texture_margin_bottom = 17.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cxcy3"]
+texture = ExtResource("5_moi6w")
+texture_margin_left = 17.0
+texture_margin_top = 17.0
+texture_margin_right = 17.0
+texture_margin_bottom = 17.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bborm"]
+texture = ExtResource("6_kqw3b")
+texture_margin_left = 17.0
+texture_margin_top = 17.0
+texture_margin_right = 17.0
+texture_margin_bottom = 17.0
+
+[sub_resource type="Theme" id="Theme_c6sj0"]
+Button/styles/disabled = SubResource("StyleBoxTexture_vdlci")
+Button/styles/hover = SubResource("StyleBoxTexture_nrrv6")
+Button/styles/normal = SubResource("StyleBoxTexture_cxcy3")
+Button/styles/pressed = SubResource("StyleBoxTexture_bborm")
 
 [sub_resource type="Theme" id="Theme_02ly6"]
 PopupMenu/font_sizes/font_size = 36
@@ -44,19 +83,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_moi6w")
 metadata/_edit_lock_ = true
-
-[node name="GAME" type="Label" parent="UILayer/GameLobby" unique_id=1716787957]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.264
-anchor_bottom = 0.18900001
-offset_right = 0.08001709
-offset_bottom = -0.08000183
-theme_override_font_sizes/font_size = 48
-text = "COOL GAME"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PlayerDisplayContainer" type="GridContainer" parent="UILayer/GameLobby" unique_id=251590160]
 custom_minimum_size = Vector2(1000, 375)
@@ -86,6 +114,7 @@ anchor_right = 0.92387503
 anchor_bottom = 0.965
 offset_right = 0.44000244
 offset_bottom = 0.19999695
+theme = SubResource("Theme_c6sj0")
 theme_override_font_sizes/font_size = 36
 disabled = true
 text = "Start"
@@ -123,6 +152,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_moi6w")
 metadata/_edit_lock_ = true
 
 [node name="PlayerStatsContainer" type="VBoxContainer" parent="UILayer/StatsScreen" unique_id=1540894891]
@@ -170,5 +200,23 @@ text = "Damage Dealt"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExitButton" type="Button" parent="UILayer/StatsScreen" unique_id=415050973]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45715627
+anchor_top = 0.8252778
+anchor_right = 0.5428437
+anchor_bottom = 0.90527785
+offset_left = -0.16003418
+offset_top = -0.2000122
+offset_right = 0.16003418
+offset_bottom = 0.19998169
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Exit"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="UILayer/GameLobby/StartButton" to="." method="OnStartPressed"]
 [connection signal="item_selected" from="UILayer/GameLobby/LevelDropdown" to="." method="OnLevelSelected"]
+[connection signal="pressed" from="UILayer/StatsScreen/ExitButton" to="." method="OnExitPressed"]

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://l3pjxqqvjg1s"]
+
+[ext_resource type="Script" uid="uid://22srk0dg76kb" path="res://Scripts/SceneSwitcher.cs" id="1_rc1hy"]
+
+[node name="SceneSwitcher" type="Node" unique_id=1000049451]
+script = ExtResource("1_rc1hy")
+MainMenuScenePath = "res://Scenes/main_menu.tscn"
+WANLobbyScenePath = "res://Scenes/wan_lobby.tscn"

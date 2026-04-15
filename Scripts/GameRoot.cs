@@ -108,7 +108,7 @@ public partial class GameRoot : Node
 
         if (Started && IsInstanceValid(Level))
         {
-            Level.AddPlayer(id);
+            //Level.AddPlayer(id);
         }
 
         OnReadyToggled();
@@ -184,7 +184,7 @@ public partial class GameRoot : Node
             GD.Print(display.Info);
             //Level.AddPlayer(id, display.Info);
         }
-        
+
         Level.InitialSpawnPlayers(Displays.Select(kvp => (kvp.Key, kvp.Value.Info)).ToArray());
 
         Rpc(MethodName.DisableGameLobbyUI);
@@ -303,5 +303,10 @@ public partial class GameRoot : Node
 
         //Rpc(MethodName.EnableGameLobbyUI);
         Rpc(MethodName.EnablePlayerStatUI);
+    }
+
+    private void OnExitPressed()
+    {
+        SceneSwitcher.Instance.SwitchToMainMenu();
     }
 }

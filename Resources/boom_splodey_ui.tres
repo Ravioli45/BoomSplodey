@@ -1,0 +1,72 @@
+[gd_resource type="Theme" format=3 uid="uid://ddnar3wij00gx"]
+
+[ext_resource type="Texture2D" uid="uid://b0hpa2h4i0ovq" path="res://SpriteSheets/BSInterface9patch.png" id="1_pecmh"]
+[ext_resource type="Texture2D" uid="uid://dyuic3wrcba3g" path="res://SpriteSheets/StandardbuttonBS9face.png" id="1_x8n8y"]
+[ext_resource type="Texture2D" uid="uid://bn8xkfd6k3wts" path="res://SpriteSheets/StandardbuttonBSClicked9face.png" id="2_64vch"]
+[ext_resource type="Texture2D" uid="uid://c4s2ol8dvn7bm" path="res://SpriteSheets/StandardbuttonBSHovered9face.png" id="3_1sret"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0sv23"]
+texture = ExtResource("1_x8n8y")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(1, 1, 1, 0.3019608)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkj6d"]
+texture = ExtResource("2_64vch")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n4uwt"]
+texture = ExtResource("3_1sret")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8h7ir"]
+texture = ExtResource("1_x8n8y")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c82fp"]
+texture = ExtResource("3_1sret")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x8n8y"]
+texture = ExtResource("1_pecmh")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/disabled = SubResource("StyleBoxTexture_0sv23")
+Button/styles/hover = SubResource("StyleBoxTexture_kkj6d")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_n4uwt")
+Button/styles/normal = SubResource("StyleBoxTexture_8h7ir")
+Button/styles/pressed = SubResource("StyleBoxTexture_c82fp")
+ItemList/colors/font_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+ItemList/colors/font_hovered_color = Color(0, 0, 0, 1)
+ItemList/colors/font_hovered_selected_color = Color(0, 0, 0, 1)
+ItemList/colors/font_outline_color = Color(1, 1, 1, 1)
+ItemList/colors/font_selected_color = Color(0, 0, 0, 1)
+ItemList/colors/scroll_hint_color = Color(1, 1, 1, 1)
+ItemList/styles/panel = SubResource("StyleBoxTexture_x8n8y")
