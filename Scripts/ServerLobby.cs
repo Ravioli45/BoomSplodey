@@ -24,6 +24,8 @@ public partial class ServerLobby : Control
     private ItemList ServerList;
     [Export]
     private Control CreateMenu;
+    [Export]
+    public Button CreateOkButton;
 
     public ServerLobbyState State
     {
@@ -108,6 +110,7 @@ public partial class ServerLobby : Control
     }
     private void OnCreateOkPressed()
     {
+        CreateOkButton.Disabled = true;
         EmitSignalCreated(ServerName);
     }
 }

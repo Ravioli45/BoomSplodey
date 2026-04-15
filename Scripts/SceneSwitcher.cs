@@ -36,10 +36,12 @@ public partial class SceneSwitcher : Node
     public void SwitchToMainMenu()
     {
         Multiplayer.MultiplayerPeer = null;
-        GetTree().ChangeSceneToFile(MainMenuScenePath);
+        //GetTree().ChangeSceneToFile(MainMenuScenePath);
+        GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, MainMenuScenePath);
     }
     public void SwitchToLobby()
     {
-        GetTree().ChangeSceneToFile(WANLobbyScenePath);
+        //GetTree().ChangeSceneToFile(WANLobbyScenePath);
+        GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, WANLobbyScenePath);
     }
 }

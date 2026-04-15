@@ -45,6 +45,7 @@ public partial class WANLobby : Node
     public SortedSet<long> Peers { get; private set; } = [];
     public List<LobbyInfo> Lobbies { get; private set; } = [];
     public WANLobbyState State { get; private set; } = WANLobbyState.Searching;
+    private bool IsClient = false;
 
     public override void _Ready()
     {
@@ -95,16 +96,31 @@ public partial class WANLobby : Node
         {
             // act as client
             Stream.ConnectToHost(ServerIP, ServerPort);
+            IsClient = true;
         }
         //Stream.ConnectToHost(ServerIP, ServerPort);
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+        Stream.DisconnectFromHost();
     }
 
     public override void _Process(double delta)
     {
         base._Process(delta);
 
-        //if(Stream.GetStatus() == StreamPeerSocket.Status.Connected)
+        if (IsClient && Stream.GetStatus() == StreamPeerSocket.Status.None)
+        {
+            // attempt reconnect
+            GD.Print("client try reconnect");
+            Stream.ConnectToHost(ServerIP, ServerPort);
+        }
+        //GD.Print(Stream.GetStatus());
         Stream.Poll();
+        //GD.Print();
 
         if (Stream.TryRecvNextMessage(out WANMessage message))
         {
@@ -119,6 +135,10 @@ public partial class WANLobby : Node
             {
                 // TODO: Join
                 JoinGame(created.Port);
+            }
+            else if (message is NotCreatedMessage)
+            {
+                ServerLobby.CreateOkButton.Disabled = false;
             }
         }
 
