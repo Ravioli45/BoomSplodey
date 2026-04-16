@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://v2mydb5nx4p8" path="res://Scripts/Bullet/LinearBullet.cs" id="1_e2qnh"]
 [ext_resource type="Texture2D" uid="uid://buk7eka653bqq" path="res://SpriteSheets/RPGProjectile.png" id="2_dby06"]
+[ext_resource type="PackedScene" uid="uid://btgshqpo0w273" path="res://RocketExplosion.tscn" id="2_waj5w"]
 [ext_resource type="Texture2D" uid="uid://inlmtgxh621n" path="res://SpriteSheets/blackSmoke04.png" id="3_dby06"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dby06"]
@@ -35,6 +36,7 @@ collision_layer = 8
 collision_mask = 7
 motion_mode = 1
 script = ExtResource("1_e2qnh")
+explosion = ExtResource("2_waj5w")
 Damage = 2
 KnockbackStrength = 2000.0
 Collider = NodePath("CollisionShape2D")
