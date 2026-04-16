@@ -187,6 +187,7 @@ public partial class WANLobby : Node
         GameRoot game = gameScene.Instantiate<GameRoot>();
 
         // connect signal???
+        game.Connect(GameRoot.SignalName.GameStarted, Callable.From(OnGameStart));
         AddChild(game, true);
         Game = game;
     }
@@ -214,6 +215,11 @@ public partial class WANLobby : Node
     private void GetGames()
     {
         Stream.SendMessage(new FetchMessage());
+    }
+    private void OnGameStart()
+    {
+        GD.Print("START");
+        Multiplayer.MultiplayerPeer?.RefuseNewConnections = true;
     }
 
     private void OnPlayerConnected(long id)
