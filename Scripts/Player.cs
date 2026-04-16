@@ -142,6 +142,8 @@ public partial class Player : CharacterBody2D
 
     [Export]
     private FollowCamera PlayerCamera;
+    [Export]
+    private AudioStreamPlayer2D ShootSoundPlayer;
 
     public Vector2 nextRecoil = new();
 
@@ -301,6 +303,12 @@ public partial class Player : CharacterBody2D
 
     public void Shoot()
     {
+        if (PlayerWeapon.Resource.ShootSound != null)
+        {
+            ShootSoundPlayer.Stream = PlayerWeapon.Resource.ShootSound;
+            ShootSoundPlayer.VolumeDb = PlayerWeapon.Resource.VolumeDb;
+            ShootSoundPlayer.Play();
+        }
 
         if (!Multiplayer.IsServer()) return;
 

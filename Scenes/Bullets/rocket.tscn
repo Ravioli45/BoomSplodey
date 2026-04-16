@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://v2mydb5nx4p8" path="res://Scripts/Bullet/LinearBullet.cs" id="1_e2qnh"]
 [ext_resource type="Texture2D" uid="uid://buk7eka653bqq" path="res://SpriteSheets/RPGProjectile.png" id="2_dby06"]
 [ext_resource type="Texture2D" uid="uid://inlmtgxh621n" path="res://SpriteSheets/blackSmoke04.png" id="3_dby06"]
+[ext_resource type="AudioStream" uid="uid://bx1bbovxkopyv" path="res://Audio/171106__qubodup__rocket-flight-loop.ogg" id="4_waj5w"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dby06"]
 properties/0/path = NodePath(".:position")
@@ -61,3 +62,10 @@ scale_amount_min = 0.1
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_waj5w")
 color_ramp = SubResource("Gradient_8n8ls")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=19385915]
+stream = ExtResource("4_waj5w")
+volume_db = 10.0
+autoplay = true
+max_distance = 6000.0
+parameters/looping = true

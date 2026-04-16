@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1v8l66skdvxv" path="res://Scripts/Bullet/Grenade.cs" id="1_icsl5"]
 [ext_resource type="Texture2D" uid="uid://cypir3uralrf1" path="res://SpriteSheets/PotatoeProjectile.png" id="1_rtei1"]
+[ext_resource type="Texture2D" uid="uid://nm8120tuds5c" path="res://SpriteSheets/whitePuff24.png" id="3_t0pd1"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icsl5"]
 properties/0/path = NodePath(".:position")
@@ -46,6 +47,13 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="Curve" id="Curve_4661w"]
+_data = [Vector2(0.07978723, 0.84269667), 0.0, 0.0, 0, 0, Vector2(0.89361703, 0.39325845), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ccyhl"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rtei1"]
 radius = 28.0
 height = 100.0
@@ -72,6 +80,22 @@ replication_config = SubResource("SceneReplicationConfig_icsl5")
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_ccyhl")
 autoplay = "default"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=115041114]
+amount = 6
+texture = ExtResource("3_t0pd1")
+lifetime = 0.52
+speed_scale = 0.37
+explosiveness = 0.54
+randomness = 0.1
+emission_shape = 3
+emission_rect_extents = Vector2(47.38, 1)
+gravity = Vector2(0, -300)
+scale_amount_min = 0.03
+scale_amount_max = 0.04
+scale_amount_curve = SubResource("Curve_4661w")
+color = Color(0.70380783, 0.70380783, 0.70380783, 1)
+color_ramp = SubResource("Gradient_ccyhl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=137308750]
 rotation = 1.5707964

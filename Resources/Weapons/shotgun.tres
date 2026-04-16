@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="1_53qpw"]
 [ext_resource type="Texture2D" uid="uid://cvw7nfenihsk0" path="res://SpriteSheets/ShotgunBS.png" id="1_akvmd"]
 [ext_resource type="PackedScene" uid="uid://unr0gewy5ie" path="res://Scenes/Bullets/shotgun_bullet.tscn" id="1_guom4"]
+[ext_resource type="AudioStream" uid="uid://cien1ch0mxll4" path="res://Audio/pistol.mp3" id="2_a878h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
 atlas = ExtResource("1_akvmd")
@@ -54,4 +55,6 @@ RecoilStrength = 2300.0
 FireStrength = 2000.0
 BulletSpawnOffset = Vector2(100, 0)
 BulletScene = ExtResource("1_guom4")
+ShootSound = ExtResource("2_a878h")
+VolumeDb = -5.0
 metadata/_custom_type_script = "uid://hww2vyb0oeef"

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dphfgkpwys83x" path="res://Scenes/Bullets/potato_grenade.tscn" id="1_css1j"]
 [ext_resource type="Texture2D" uid="uid://b7c654egyfp72" path="res://SpriteSheets/PotatoLauncherBS.png" id="1_elv78"]
 [ext_resource type="Script" uid="uid://hww2vyb0oeef" path="res://Scripts/WeaponResource.cs" id="2_css1j"]
+[ext_resource type="AudioStream" uid="uid://ct75sdf3g8alg" path="res://Audio/potato_launcher.mp3" id="2_soken"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8erm5"]
 atlas = ExtResource("1_elv78")
@@ -61,4 +62,6 @@ RecoilStrength = 1500.0
 FireStrength = 2500.0
 BulletSpawnOffset = Vector2(75, 0)
 BulletScene = ExtResource("1_css1j")
+ShootSound = ExtResource("2_soken")
+VolumeDb = 7.5
 metadata/_custom_type_script = "uid://hww2vyb0oeef"

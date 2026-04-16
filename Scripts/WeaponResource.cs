@@ -94,9 +94,33 @@ public partial class WeaponResource : Resource
         }
     }
 
-    public WeaponResource() : this(null, Vector2.Zero, 0.0f, 0.0f, 0.0f, Vector2.Zero, null) { }
+    [ExportSubgroup("Sound")]
+    private AudioStream _shootSound;
+    [Export]
+    public AudioStream ShootSound
+    {
+        get => _shootSound;
+        set
+        {
+            _shootSound = value;
+            EmitChanged();
+        }
+    }
+    private float _volumeDb;
+    [Export]
+    public float VolumeDb
+    {
+        get => _volumeDb;
+        set
+        {
+            _volumeDb = value;
+            EmitChanged();
+        }
+    }
 
-    public WeaponResource(SpriteFrames spriteAnimations, Vector2 spriteOffset, float fireRate, float recoilStrength, float fireStrength, Vector2 bulletSpawnOffset, PackedScene bulletScene)
+    public WeaponResource() : this(null, Vector2.Zero, 0.0f, 0.0f, 0.0f, Vector2.Zero, null, null, 0) { }
+
+    public WeaponResource(SpriteFrames spriteAnimations, Vector2 spriteOffset, float fireRate, float recoilStrength, float fireStrength, Vector2 bulletSpawnOffset, PackedScene bulletScene, AudioStream shootSound, float volumeDb)
     {
         //SpriteAnimations = spriteAnimations;
         //BulletSpawnOffset = bulletSpawnOffset;
@@ -109,5 +133,8 @@ public partial class WeaponResource : Resource
 
         _bulletSpawnOffset = bulletSpawnOffset;
         _bulletScene = bulletScene;
+
+        _shootSound = shootSound;
+        _volumeDb = volumeDb;
     }
 }
