@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c1v8l66skdvxv" path="res://Scripts/Bullet/Grenade.cs" id="1_icsl5"]
 [ext_resource type="Texture2D" uid="uid://cypir3uralrf1" path="res://SpriteSheets/PotatoeProjectile.png" id="1_rtei1"]
+[ext_resource type="PackedScene" uid="uid://557nkyv6bjl5" path="res://Scenes/ExplosionParticles.tscn" id="2_4661w"]
 [ext_resource type="Texture2D" uid="uid://nm8120tuds5c" path="res://SpriteSheets/whitePuff24.png" id="3_t0pd1"]
-[ext_resource type="PackedScene" uid="uid://557nkyv6bjl5" path="res://ExplosionParticles.tscn" id="2_t0pd1"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icsl5"]
 properties/0/path = NodePath(".:position")
@@ -70,7 +70,7 @@ script = ExtResource("1_icsl5")
 ExplosionArea = NodePath("ExplosionArea")
 GravityScale = 1.5
 Bounciness = 0.7
-explosion = ExtResource("2_t0pd1")
+explosion = ExtResource("2_4661w")
 Damage = 2
 KnockbackStrength = 3000.0
 Collider = NodePath("CollisionShape2D")

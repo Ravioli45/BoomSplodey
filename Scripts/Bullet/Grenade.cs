@@ -58,10 +58,11 @@ public partial class Grenade : Bullet
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);
             }
         }
-        GpuParticles2D tempExplosion = explosion.Instantiate<GpuParticles2D>();
+        GpuParticles2D tempExplosion = explosion.Instantiate<Explosion>();
+        tempExplosion.Position = Position;
         GetParent().AddChild(tempExplosion, true);
-        tempExplosion.GlobalPosition = this.GlobalPosition;
-        tempExplosion.Emitting = true;
+        //tempExplosion.GlobalPosition = this.GlobalPosition;
+        //tempExplosion.Emitting = true;
         QueueFree();
     }
 }

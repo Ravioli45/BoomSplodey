@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://557nkyv6bjl5"]
 
 [ext_resource type="Texture2D" uid="uid://b5vu0ey7fhyq7" path="res://SpriteSheets/ExplosionBS.png" id="1_37tx1"]
+[ext_resource type="Script" uid="uid://dre76l6h170rn" path="res://Scripts/Explosion.cs" id="2_l18sx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfj16"]
 particles_animation = true
@@ -34,7 +35,12 @@ color_ramp = SubResource("GradientTexture1D_sdjpg")
 anim_speed_min = 1.1
 anim_speed_max = 1.5999999
 
-[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1913980389]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4xl67"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1913980389 node_paths=PackedStringArray("BoomSoundPlayer")]
 material = SubResource("CanvasItemMaterial_kfj16")
 emitting = false
 amount = 20
@@ -44,4 +50,21 @@ one_shot = true
 speed_scale = 0.8
 explosiveness = 0.61
 randomness = 0.45
+visibility_rect = Rect2(-50000, -10000, 100000, 20000)
 process_material = SubResource("ParticleProcessMaterial_34k2a")
+script = ExtResource("2_l18sx")
+BoomSoundPlayer = NodePath("BoomPlayer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1189390408]
+replication_config = SubResource("SceneReplicationConfig_4xl67")
+
+[node name="BoomPlayer" type="AudioStreamPlayer2D" parent="." unique_id=2090971105]
+volume_db = -5.0
+max_distance = 6000.0
+
+[node name="Timer" type="Timer" parent="." unique_id=938541812]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeout"]

@@ -29,9 +29,14 @@ public partial class LinearBullet : Bullet
 
     public void Explosion()
     {
-        GpuParticles2D tempExplosion = explosion.Instantiate<GpuParticles2D>();
-        GetParent().AddChild(tempExplosion, true);
-        tempExplosion.GlobalPosition = this.GlobalPosition;
-        tempExplosion.Emitting = true;
+        if (explosion != null)
+        {
+            GpuParticles2D tempExplosion = explosion.Instantiate<Explosion>();
+            //tempExplosion.GlobalPosition = GlobalPosition;
+            tempExplosion.Position = Position;
+            GetParent().AddChild(tempExplosion, true);
+            //tempExplosion.GlobalPosition = this.GlobalPosition;
+            //tempExplosion.Emitting = true;
+        }
     }
 }

@@ -4,8 +4,12 @@
 [ext_resource type="Resource" uid="uid://ca5vjnmlh00cc" path="res://Resources/Weapons/shotgun.tres" id="2_qsdv5"]
 [ext_resource type="Resource" uid="uid://cdcoxq37k8r3s" path="res://Resources/Weapons/RPG.tres" id="3_pcofn"]
 [ext_resource type="Resource" uid="uid://dnl86c1u0ivn1" path="res://Resources/Weapons/potato_launcher.tres" id="4_x4ja0"]
+[ext_resource type="AudioStream" uid="uid://b321vyqxjd8y7" path="res://Audio/Boom1.mp3" id="5_x4ja0"]
+[ext_resource type="AudioStream" uid="uid://cefg8mfeonebf" path="res://Audio/Boom2.mp3" id="6_13o30"]
+[ext_resource type="AudioStream" uid="uid://be8lkubgptaog" path="res://Audio/Boom3Quiet.mp3" id="7_13o30"]
 
 [node name="GlobalResources" type="Node" unique_id=1947013935]
 script = ExtResource("1_jh8f0")
 Weapons = Array[Object]([ExtResource("2_qsdv5"), ExtResource("3_pcofn"), ExtResource("4_x4ja0")])
 LevelScenePaths = Array[String](["res://Scenes/Levels/boot_camp.tscn", "res://Scenes/Levels/desert_level.tscn", "res://Scenes/Levels/under_construction_level.tscn"])
+ExplosionSounds = Array[AudioStream]([ExtResource("5_x4ja0"), ExtResource("6_13o30"), ExtResource("7_13o30")])

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btgshqpo0w273"]
 
-[ext_resource type="Texture2D" uid="uid://b5vu0ey7fhyq7" path="res://SpriteSheets/ExplosionBS.png" id="1_50ytv"]
+[ext_resource type="Texture2D" uid="uid://b5vu0ey7fhyq7" path="res://SpriteSheets/ExplosionBS.png" id="1_isuwb"]
+[ext_resource type="Script" uid="uid://dre76l6h170rn" path="res://Scripts/Explosion.cs" id="2_k4twu"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m4bbn"]
 particles_animation = true
@@ -38,14 +39,36 @@ anim_speed_max = 1.0
 anim_offset_max = 0.0179
 anim_offset_curve = SubResource("CurveTexture_4t0rw")
 
-[node name="GPUParticles2D" type="GPUParticles2D" unique_id=2014143051]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_isuwb"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=2014143051 node_paths=PackedStringArray("BoomSoundPlayer")]
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_m4bbn")
 emitting = false
 amount = 18
-texture = ExtResource("1_50ytv")
+texture = ExtResource("1_isuwb")
 lifetime = 0.43
 one_shot = true
 explosiveness = 0.64
 randomness = 0.24
+visibility_rect = Rect2(-50000, -10000, 100000, 20000)
 process_material = SubResource("ParticleProcessMaterial_f5x4g")
+script = ExtResource("2_k4twu")
+BoomSoundPlayer = NodePath("BoomPlayer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1676112637]
+replication_config = SubResource("SceneReplicationConfig_isuwb")
+
+[node name="BoomPlayer" type="AudioStreamPlayer2D" parent="." unique_id=929217304]
+volume_db = -5.0
+max_distance = 6000.0
+
+[node name="Timer" type="Timer" parent="." unique_id=221647477]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeout"]

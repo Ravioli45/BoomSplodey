@@ -10,6 +10,8 @@ public partial class GlobalResources : Node
     public Array<WeaponResource> Weapons;
     [Export(PropertyHint.File)]
     public Array<string> LevelScenePaths;
+    [Export]
+    public Array<AudioStream> ExplosionSounds;
 
     public static GlobalResources Instance { get; private set; }
 
