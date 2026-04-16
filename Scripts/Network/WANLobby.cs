@@ -207,6 +207,7 @@ public partial class WANLobby : Node
         }
 
         ServerLobby.State = ServerLobby.ServerLobbyState.Off;
+        Stream.SendMessage(new JoinMessage{Port = (ushort)port});
 
         Multiplayer.MultiplayerPeer = peer;
 
@@ -267,6 +268,7 @@ public partial class WANLobby : Node
     }
     private void OnConnectionFail()
     {
+        //Multiplayer.MultiplayerPeer?.Close();
         Multiplayer.MultiplayerPeer = null;
 
         SceneSwitcher.Instance.SwitchToMainMenu();

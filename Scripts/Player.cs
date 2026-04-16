@@ -332,7 +332,7 @@ public partial class Player : CharacterBody2D
             {
                 Bullet moreBullet = PlayerWeapon.Resource.BulletScene.Instantiate<Bullet>();
                 moreBullet.OwnerId = OwnerId;
-                moreBullet.Rotation = PlayerWeapon.Rotation + 0.1f * i;
+                moreBullet.Rotation = PlayerWeapon.Rotation + 0.075f * i;
                 moreBullet.GlobalPosition = PlayerWeapon.BulletSpawnpoint.GlobalPosition;
                 moreBullet.Velocity = PlayerWeapon.Resource.FireStrength * moreBullet.GlobalTransform.X;
 
