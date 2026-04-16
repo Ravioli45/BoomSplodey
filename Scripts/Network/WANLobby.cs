@@ -95,6 +95,7 @@ public partial class WANLobby : Node
         else
         {
             // act as client
+            ServerIP = GlobalResources.Instance.CustomIp ?? ServerIP;
             Stream.ConnectToHost(ServerIP, ServerPort);
             IsClient = true;
         }

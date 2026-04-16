@@ -5,9 +5,11 @@ using System;
 public partial class GlobalResources : Node
 {
     [Export]
+    public string CustomIp = null;
+    [Export]
     public Array<WeaponResource> Weapons;
     [Export(PropertyHint.File)]
-    public Array<String> LevelScenePaths;
+    public Array<string> LevelScenePaths;
 
     public static GlobalResources Instance { get; private set; }
 

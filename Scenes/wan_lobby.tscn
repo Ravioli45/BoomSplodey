@@ -10,8 +10,8 @@ properties/0/replication_mode = 2
 
 [node name="WANLobby" type="Node" unique_id=2132597845 node_paths=PackedStringArray("ServerLobby")]
 script = ExtResource("1_7p2gv")
-ServerIP = "20.110.216.100"
-ServerPort = 8080
+ServerIP = "23.128.112.70"
+ServerPort = 9001
 MaxPlayers = 4
 ServerLobby = NodePath("ServerLobby")
 GameScenePath = "res://Scenes/game_root.tscn"
