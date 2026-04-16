@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dps1o3fh1ucy0"]
+
+[ext_resource type="Script" uid="uid://bewb4dvom7lbn" path="res://Scripts/KillPlane.cs" id="1_bv1tu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2aa5p"]
+
+[node name="KillPlane" type="Area2D" unique_id=1776245345]
+collision_layer = 32
+collision_mask = 4
+script = ExtResource("1_bv1tu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1365333039]
+shape = SubResource("WorldBoundaryShape2D_2aa5p")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
