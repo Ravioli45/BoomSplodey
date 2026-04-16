@@ -9,6 +9,8 @@ public partial class Grenade : Bullet
     private float GravityScale = 1;
     [Export]
     private float Bounciness = 1;
+    [Export]
+    PackedScene explosion;
 
     public override void _PhysicsProcess(double delta)
     {
@@ -56,7 +58,10 @@ public partial class Grenade : Bullet
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);
             }
         }
-
+        GpuParticles2D tempExplosion = explosion.Instantiate<GpuParticles2D>();
+        GetParent().AddChild(tempExplosion, true);
+        tempExplosion.GlobalPosition = this.GlobalPosition;
+        tempExplosion.Emitting = true;
         QueueFree();
     }
 }

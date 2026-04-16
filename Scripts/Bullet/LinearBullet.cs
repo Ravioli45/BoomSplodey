@@ -3,6 +3,9 @@ using System;
 
 public partial class LinearBullet : Bullet
 {
+
+    [Export]
+    PackedScene explosion;
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
@@ -17,9 +20,18 @@ public partial class LinearBullet : Bullet
                 p.TakeDamage(OwnerId, Damage);
                 //p.TakeKnockback(KnockbackStrength * GlobalTransform.X);
                 p.TakeKnockback(GlobalPosition.DirectionTo(p.GlobalPosition) * KnockbackStrength);
+                
             }
-
+            Explosion();
             QueueFree();
         }
+    }
+
+    public void Explosion()
+    {
+        GpuParticles2D tempExplosion = explosion.Instantiate<GpuParticles2D>();
+        GetParent().AddChild(tempExplosion, true);
+        tempExplosion.GlobalPosition = this.GlobalPosition;
+        tempExplosion.Emitting = true;
     }
 }
