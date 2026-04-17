@@ -24,6 +24,8 @@ public partial class MainMenu : Control
         //GD.Print(GlobalResources.Instance.CustomIP == null);
         IpEdit.Text = GlobalResources.Instance.CustomIp ?? "";
         IpEdit.CaretColumn = IpEdit.Text.Length;
+
+        AudioManager.Instance.PlayBGM("main_menu");
     }
     private void OnPlayPressed()
     {

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://duypndc0f82va"]
+
+[ext_resource type="Script" uid="uid://dv3tw34nxciwl" path="res://Scripts/AudioManager.cs" id="1_sm2tf"]
+[ext_resource type="AudioStream" uid="uid://b3oqwon8vkxxq" path="res://Audio/Trap and boss - 133 bpm.wav" id="2_hhwve"]
+[ext_resource type="AudioStream" uid="uid://cec6f6wov1rbb" path="res://Audio/DavidKBD - InterstellarPack - 09 - Spiral of Plasma.ogg" id="3_qixve"]
+
+[node name="AudioManager" type="Node" unique_id=1263961539]
+script = ExtResource("1_sm2tf")
+bgm_list = Dictionary[StringName, AudioStream]({
+&"battle": ExtResource("3_qixve"),
+&"main_menu": ExtResource("2_hhwve")
+})
+streams = 0

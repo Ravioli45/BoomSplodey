@@ -32,6 +32,8 @@ public partial class Level : Node2D
                 Spawnpoints.Add(n2d);
             }
         }
+
+        AudioManager.Instance.PlayBGM("battle");
     }
 
     public void AddPlayer(long id, PlayerInfo info = null, int? spawnPointIndex = null)

@@ -17,8 +17,8 @@ PlayerScene = ExtResource("2_n42he")
 [node name="GameObjectSpawner" parent="." unique_id=380239694 instance=ExtResource("3_mnret")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1265242102]
-position = Vector2(204.50034, -2309)
-scale = Vector2(8.107083, 4.285)
+position = Vector2(204.50034, -1477)
+scale = Vector2(12.465969, 6.588889)
 texture = ExtResource("1_vgdks")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=30784103]
